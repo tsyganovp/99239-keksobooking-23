@@ -1,8 +1,8 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Павел Цыганов](https://up.htmlacademy.ru/javascript/23/user/99239).
-* //Наставник: [Николай Думчев](https://htmlacademy.ru/profile/nikopol_fw).
-
+* Наставник: [Николай Думчев](https://htmlacademy.ru/profile/nikopol_fw).
+!!!!!
 ---
 
 _Не удаляйте и не изменяйте самовольно файлы и папки:_
