@@ -10,7 +10,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
+getRandomIntInclusive(10,1);
 
 function getRandomFloat(min, max, numbersAfter) {
   if (min < 0 || max < 0) {
@@ -22,3 +22,4 @@ function getRandomFloat(min, max, numbersAfter) {
   return (Math.random() * (max - min) + min).toFixed(numbersAfter);
 }
 
+getRandomFloat(1,10,2);
