@@ -10,7 +10,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-getRandomIntInclusive(10,1);
+getRandomIntInclusive(10, 1);
 
 function getRandomFloat(min, max, numbersAfter) {
   if (min < 0 || max < 0) {
@@ -22,13 +22,38 @@ function getRandomFloat(min, max, numbersAfter) {
   return (Math.random() * (max - min) + min).toFixed(numbersAfter);
 }
 
-getRandomFloat(1,10,2);
+getRandomFloat(1, 10, 2);
 
 let avatarPicNumber = 8;
+let maximumPerDayPrice = 1000;
+let maximumRooms = 5;
+let maximumGuests = 4;
+const ROOM_TYPE = ["palace", "flat", "house", "bungalow", "hotel"];
+const CHECK_IN_TIME = ["12:00", "13:00", "14:00"];
+const CHECK_OUT_TIME = ["12:00", "13:00", "14:00"];
+const FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
 const createAuthor = () => {
   return {
-    avatar: "img/avatars/user0" + getRandomIntInclusive(0,avatarPicNumber) + ".png".toString(),
+    avatar: "img/avatars/user0" + getRandomIntInclusive(0, avatarPicNumber) + ".png".toString(),
+  };
+}
+
+
+const createOffer = () => {
+  return {
+    title: "Сдается жилье!",
+    address: "",
+    price: getRandomIntInclusive(1, maximumPerDayPrice),
+    type: ROOM_TYPE[getRandomIntInclusive(0, ROOM_TYPE.length - 1)],
+    rooms: getRandomIntInclusive(1, maximumRooms),
+    guests: getRandomIntInclusive(1, maximumGuests),
+    checkin: getRandomIntInclusive(0, CHECK_IN_TIME.length - 1),
+    checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
+    features: "",
+    description: "Хороший вариант, Кекс одобряет!",
+    photos: "",
   };
 }
 console.log(createAuthor());
+console.log(createOffer());
 
