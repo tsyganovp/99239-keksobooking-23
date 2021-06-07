@@ -54,6 +54,19 @@ const createOffer = () => {
     photos: "",
   };
 }
+
+let lat_minimum = 35.65000;
+let lat_maximum = 35.70000;
+let lng_minimum = 139.70000;
+let lng_maximum = 139.80000;
+
+const createLocation =() => {
+  return {
+    lat: getRandomFloat(lat_minimum, lat_maximum, 4),
+    lng: getRandomFloat(lng_minimum, lng_maximum, 4),
+  };
+}
 console.log(createAuthor());
 console.log(createOffer());
+console.log(createLocation());
 
