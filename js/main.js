@@ -1,4 +1,4 @@
-//const { create } = require("eslint/lib/rules/*");
+const { create } = require("eslint/lib/rules/*");
 
 function getRandomIntInclusive(min, max) {
   if (min < 0 || max < 0) {
@@ -72,7 +72,7 @@ const createLocation =() => {
 
 let author = new Object(createAuthor);
 let offer = new Object(createOffer);
-let location = new Object(createLocation);
+//let location = new Object(createLocation);
 console.log(createAuthor());
 console.log(createOffer());
 console.log(createLocation());
