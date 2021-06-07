@@ -23,3 +23,12 @@ function getRandomFloat(min, max, numbersAfter) {
 }
 
 getRandomFloat(1,10,2);
+
+let avatarPicNumber = 8;
+const createAuthor = () => {
+  return {
+    avatar: "img/avatars/user0" + getRandomIntInclusive(0,avatarPicNumber) + ".png".toString(),
+  };
+}
+console.log(createAuthor());
+s
