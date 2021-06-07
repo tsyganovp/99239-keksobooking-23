@@ -1,10 +1,10 @@
+//const { create } = require("eslint/lib/rules/*");
+
 function getRandomIntInclusive(min, max) {
   if (min < 0 || max < 0) {
-    //return 'Введите корректное число';
     throw new Error("Максимальное число меньше минимального");
   }
   if (max < min) {
-    //return 'Максимальное число меньше минимального';
     throw new Error("Максимальное число меньше минимального");
   }
   min = Math.ceil(min);
@@ -16,11 +16,9 @@ getRandomIntInclusive(1, 10);
 
 function getRandomFloat(min, max, numbersAfter) {
   if (min < 0 || max < 0) {
-    //return 'Введите корректное число';
     throw new Error("Введите корректное число");
   }
   if (max < min) {
-    //return 'Максимальное число меньше минимального';
     throw new Error ("Максимальное число меньше минимального");
   }
   return (Math.random() * (max - min) + min).toFixed(numbersAfter);
@@ -36,6 +34,7 @@ const ROOM_TYPE = ["palace", "flat", "house", "bungalow", "hotel"];
 const CHECK_IN_TIME = ["12:00", "13:00", "14:00"];
 const CHECK_OUT_TIME = ["12:00", "13:00", "14:00"];
 const FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
+
 const createAuthor = () => {
   return {
     avatar: "img/avatars/user0" + getRandomIntInclusive(0, avatarPicNumber) + ".png".toString(),
@@ -71,6 +70,9 @@ const createLocation =() => {
   };
 }
 
+let author = new Object(createAuthor);
+let offer = new Object(createOffer);
+let location = new Object(createLocation);
 console.log(createAuthor());
 console.log(createOffer());
 console.log(createLocation());
