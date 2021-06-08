@@ -34,7 +34,11 @@ const ROOM_TYPE = ["palace", "flat", "house", "bungalow", "hotel"];
 const CHECK_IN_TIME = ["12:00", "13:00", "14:00"];
 const CHECK_OUT_TIME = ["12:00", "13:00", "14:00"];
 const FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
+let photos = ["https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg",
+  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg",
+  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg"];
 let featuresArrLength = FEATURES.length;
+let numberOfPhotos = 10;
 
 const createAuthor = () => {
   return {
@@ -56,7 +60,7 @@ const createOffer = () => {
     checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
     features: featuresGenerator(),
     description: "Хороший вариант, Кекс одобряет!",
-    photos: "",
+    photos: photosGenerator(),
   };
 }
 
@@ -72,15 +76,24 @@ const createLocation = () => {
   };
 }
 
-let featuresGenerator = function() {
-  let featuresArray =[];
-  for(let i = 0; i <= getRandomIntInclusive(1, featuresArrLength); i++) {
-    let random = FEATURES[Math.floor(Math.random()*FEATURES.length)];
+let featuresGenerator = function () {
+  let featuresArray = [];
+  for (let i = 0; i <= getRandomIntInclusive(1, featuresArrLength); i++) {
+    let random = FEATURES[Math.floor(Math.random() * FEATURES.length)];
     featuresArray[i] = random;
   }
-  return uniqArr = Array.from(new Set(featuresArray.map(item=>item.trim())));//поиск и удаление дублей из массива featuresArray
+  return uniqArr = Array.from(new Set(featuresArray.map(item => item.trim())));//поиск и удаление дублей из массива featuresArray
 }
 
+let photosGenerator = function () {
+  let photosArrLenght = getRandomIntInclusive(1, numberOfPhotos);
+  let photosArray = new Array(numberOfPhotos).fill(null);
+
+  for (let i = 0; i <= numberOfPhotos - 1; i++) {
+    photosArray[i] = photos[getRandomIntInclusive(1, photos.length-1)];
+  }
+  return photosArray;
+}
 
 
 const lat = createLocation().lat;
@@ -95,6 +108,6 @@ let object = {
   }
 };
 
-console.log(createOffer());
+console.log(object);
 
 
