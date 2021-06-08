@@ -90,7 +90,7 @@ let photosGenerator = function () {
   let photosArray = new Array(numberOfPhotos).fill(null);
 
   for (let i = 0; i <= numberOfPhotos - 1; i++) {
-    photosArray[i] = photos[getRandomIntInclusive(1, photos.length-1)];
+    photosArray[i] = photos[getRandomIntInclusive(1, photos.length - 1)];
   }
   return photosArray;
 }
