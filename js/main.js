@@ -108,6 +108,16 @@ let object = {
   }
 };
 
-console.log(object);
+for (i = 1; i < 10; i++) {
+  let object = {
+    author: createAuthor(),
+    offer: createOffer(),
+    location: {
+      lat,
+      lng,
+    }
+  };
+  console.log(object);
+}
 
 
