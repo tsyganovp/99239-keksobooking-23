@@ -2,10 +2,10 @@
 
 function getRandomIntInclusive(min, max) {
   if (min < 0 || max < 0) {
-    throw new Error("Максимальное число меньше минимального");
+    throw new Error('Максимальное число меньше минимального');
   }
   if (max < min) {
-    throw new Error("Максимальное число меньше минимального");
+    throw new Error('Максимальное число меньше минимального');
   }
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -16,108 +16,88 @@ getRandomIntInclusive(1, 10);
 
 function getRandomFloat(min, max, numbersAfter) {
   if (min < 0 || max < 0) {
-    throw new Error("Введите корректное число");
+    throw new Error('Введите корректное число');
   }
   if (max < min) {
-    throw new Error("Максимальное число меньше минимального");
+    throw new Error('Максимальное число меньше минимального');
   }
   return (Math.random() * (max - min) + min).toFixed(numbersAfter);
 }
 
 getRandomFloat(1, 10, 2);
 
-let avatarPicNumber = 8;
-let maximumPerDayPrice = 1000;
-let maximumRooms = 5;
-let maximumGuests = 4;
-const ROOM_TYPE = ["palace", "flat", "house", "bungalow", "hotel"];
-const CHECK_IN_TIME = ["12:00", "13:00", "14:00"];
-const CHECK_OUT_TIME = ["12:00", "13:00", "14:00"];
-const FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
-let photos = ["https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg",
-  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg",
-  "https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg"];
-let featuresArrLength = FEATURES.length;
-let numberOfPhotos = 10;
+const avatarPicNumber = 8;
+const maximumPerDayPrice = 1000;
+const maximumRooms = 5;
+const maximumGuests = 4;
+const ROOM_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const CHECK_IN_TIME = ['12:00', '13:00', '14:00'];
+const CHECK_OUT_TIME = ['12:00', '13:00', '14:00'];
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const featuresArrLength = FEATURES.length;
+const numberOfPhotos = 10;
 
-const createAuthor = () => {
-  return {
-    avatar: "img/avatars/user0" + getRandomIntInclusive(0, avatarPicNumber) + ".png".toString(),
-  };
-}
+const latMinimum = 35.65000;
+const latMaximum = 35.70000;
+const lngMinimum = 139.70000;
+const lngMaximum = 139.80000;
 
-
-
-const createOffer = () => {
-  return {
-    title: "Сдается жилье!",
-    address: "" + lat + " " + lng,
-    price: getRandomIntInclusive(1, maximumPerDayPrice),
-    type: ROOM_TYPE[getRandomIntInclusive(0, ROOM_TYPE.length - 1)],
-    rooms: getRandomIntInclusive(1, maximumRooms),
-    guests: getRandomIntInclusive(1, maximumGuests),
-    checkin: getRandomIntInclusive(0, CHECK_IN_TIME.length - 1),
-    checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
-    features: featuresGenerator(),
-    description: "Хороший вариант, Кекс одобряет!",
-    photos: photosGenerator(),
-  };
-}
-
-let lat_minimum = 35.65000;
-let lat_maximum = 35.70000;
-let lng_minimum = 139.70000;
-let lng_maximum = 139.80000;
-
-const createLocation = () => {
-  return {
-    lat: getRandomFloat(lat_minimum, lat_maximum, 4),
-    lng: getRandomFloat(lng_minimum, lng_maximum, 4),
-  };
-}
-
-let featuresGenerator = function () {
-  let featuresArray = [];
-  for (let i = 0; i <= getRandomIntInclusive(1, featuresArrLength); i++) {
-    let random = FEATURES[Math.floor(Math.random() * FEATURES.length)];
-    featuresArray[i] = random;
+const featuresGenerator = function () {
+  const featuresArray = [];
+  for (let ind = 0; ind <= getRandomIntInclusive(1, featuresArrLength); ind++) {
+    const random = FEATURES[Math.floor(Math.random() * FEATURES.length)];
+    featuresArray[ind] = random;
   }
-  return uniqArr = Array.from(new Set(featuresArray.map(item => item.trim())));//поиск и удаление дублей из массива featuresArray
-}
+  return Array.from(new Set(featuresArray.map((item) => item.trim())));//поиск и удаление дублей из массива featuresArray
+};
 
-let photosGenerator = function () {
-  let photosArrLenght = getRandomIntInclusive(1, numberOfPhotos);
-  let photosArray = new Array(numberOfPhotos).fill(null);
-
-  for (let i = 0; i <= numberOfPhotos - 1; i++) {
-    photosArray[i] = photos[getRandomIntInclusive(1, photos.length - 1)];
+const photosGenerator = function () {
+  const photosArray = new Array(numberOfPhotos).fill(null);
+  for (let ind = 0; ind <= numberOfPhotos - 1; ind++) {
+    photosArray[ind] = photos[getRandomIntInclusive(1, photos.length - 1)];
   }
   return photosArray;
-}
+};
 
+const createAuthor = () => ({
+  avatar: `img/avatars/user0${getRandomIntInclusive(0, avatarPicNumber)}${'.png'.toString()}`,
+});
+
+const createLocation = () => ({
+  lat: getRandomFloat(latMinimum, latMaximum, 4),
+  lng: getRandomFloat(lngMinimum, lngMaximum, 4),
+});
 
 const lat = createLocation().lat;
 const lng = createLocation().lng;
 
-let object = {
+const createOffer = () => ({
+  title: 'Сдается жилье!',
+  address: `${lat} ${lng}`,
+  price: getRandomIntInclusive(1, maximumPerDayPrice),
+  type: ROOM_TYPE[getRandomIntInclusive(0, ROOM_TYPE.length - 1)],
+  rooms: getRandomIntInclusive(1, maximumRooms),
+  guests: getRandomIntInclusive(1, maximumGuests),
+  checkin: getRandomIntInclusive(0, CHECK_IN_TIME.length - 1),
+  checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
+  features: featuresGenerator(),
+  description: 'Хороший вариант, Кекс одобряет!',
+  photos: photosGenerator(),
+});
+
+
+const object = {
   author: createAuthor(),
   offer: createOffer(),
   location: {
     lat,
     lng,
-  }
+  },
 };
-
-for (i = 1; i < 10; i++) {
-  let object = {
-    author: createAuthor(),
-    offer: createOffer(),
-    location: {
-      lat,
-      lng,
-    }
-  };
-  console.log(object);
+const objectArray = new Array(10).fill(null);
+for (let ind = 0; ind <= 10; ind++) {
+  objectArray[ind] = object;
 }
-
-
