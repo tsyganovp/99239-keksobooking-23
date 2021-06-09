@@ -71,12 +71,9 @@ const createLocation = () => ({
   lng: getRandomFloat(lngMinimum, lngMaximum, 4),
 });
 
-const lat = createLocation().lat;
-const lng = createLocation().lng;
-
 const createOffer = () => ({
   title: 'Сдается жилье!',
-  address: `${lat} ${lng}`,
+  address: null,
   price: getRandomIntInclusive(1, maximumPerDayPrice),
   type: ROOM_TYPE[getRandomIntInclusive(0, ROOM_TYPE.length - 1)],
   rooms: getRandomIntInclusive(1, maximumRooms),
@@ -88,16 +85,21 @@ const createOffer = () => ({
   photos: photosGenerator(),
 });
 
-
-const object = {
-  author: createAuthor(),
-  offer: createOffer(),
-  location: {
-    lat,
-    lng,
-  },
-};
-const objectArray = new Array(10).fill(null);
+const objectArray = new Array().fill(null);
 for (let ind = 0; ind <= 10; ind++) {
-  objectArray[ind] = object;
+
+  const authorObj = createAuthor();
+  const locationObj = createLocation();
+  const offerObj = createOffer();
+
+  offerObj.address = `${locationObj.lat  } ${  locationObj.lng}`;
+
+  const bookStay = {
+    author: authorObj,
+    offer: offerObj,
+    location: locationObj,
+  };
+
+  objectArray.push(bookStay);
+
 }
