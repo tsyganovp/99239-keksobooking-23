@@ -85,14 +85,14 @@ const createOffer = () => ({
   photos: photosGenerator(),
 });
 
-const objectArray = new Array().fill(null);
+const resultArray = [];
 for (let ind = 0; ind <= 10; ind++) {
 
   const authorObj = createAuthor();
   const locationObj = createLocation();
   const offerObj = createOffer();
 
-  offerObj.address = `${locationObj.lat  } ${  locationObj.lng}`;
+  offerObj.address = `${locationObj.lat  }, ${  locationObj.lng}`;
 
   const bookStay = {
     author: authorObj,
@@ -100,6 +100,6 @@ for (let ind = 0; ind <= 10; ind++) {
     location: locationObj,
   };
 
-  objectArray.push(bookStay);
+  resultArray.push(bookStay);
 
 }
