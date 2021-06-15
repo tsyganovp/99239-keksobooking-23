@@ -19,5 +19,5 @@ const lngMaximum = 139.80000;
 
 
 export {avatarPicNumber, maximumPerDayPrice, maximumRooms, maximumGuests, 
-    ROOM_TYPE, CHECK_IN_TIME, CHECK_OUT_TIME, photos, featuresArrLength, 
+    ROOM_TYPE, CHECK_IN_TIME, CHECK_OUT_TIME,FEATURES, photos, featuresArrLength, 
     numberOfPhotos, latMinimum, latMaximum, lngMinimum, lngMaximum};
