@@ -1,12 +1,9 @@
-//import {getRandomIntInclusive, getRandomFloat, advertisementsArrayGenerator} from '.data.js';
-import {createAuthor, createLocation,createOffer} from './data.js';
-import {advertisementsArrayGenerator} from './util.js';
-/*
-getRandomIntInclusive(1, 10);
-getRandomFloat(1, 10, 2);
-advertisementsArrayGenerator();
-*/
+import {createAuthor, createLocation,createOffer,advertisements} from './data.js';
+
+
 createAuthor();
 createLocation();
 createOffer();
-advertisementsArrayGenerator();
+
+// eslint-disable-next-line no-console
+console.log(advertisements);

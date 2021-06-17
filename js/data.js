@@ -1,3 +1,6 @@
+import {getRandomIntInclusive, getRandomFloat} from './util.js';
+
+
 //переменные для работы программы
 const avatarPicNumber = 8;
 const maximumPerDayPrice = 1000;
@@ -17,10 +20,11 @@ const latMaximum = 35.70000;
 const lngMinimum = 139.70000;
 const lngMaximum = 139.80000;
 
-import {getRandomIntInclusive, getRandomFloat} from './util.js'; // импорт необходимых функций
-
-
-const featuresGenerator = () => {// генерация особенностей места проживания
+/**
+* Генерирует массив особенностей объекта проживания
+* @return {array[]}
+*/
+const featuresGenerate = () => {
   const featuresArray = [];
   for (let ind = 0; ind <= getRandomIntInclusive(1, featuresArrLength); ind++) {
     const random = FEATURES[Math.floor(Math.random() * FEATURES.length)];
@@ -29,7 +33,11 @@ const featuresGenerator = () => {// генерация особенностей 
   return Array.from(new Set(featuresArray.map((item) => item.trim())));//поиск и удаление дублей из массива featuresArray
 };
 
-const photosGenerator = () => { // генерация фотографий места проживания
+/**
+* Генерирует массив строк с url'ами фотографий мест проживания
+* @return {string[]}
+*/
+const photosGenerate = () => {
   const photosArray = new Array(numberOfPhotos).fill(null);
   for (let ind = 0; ind <= numberOfPhotos - 1; ind++) {
     photosArray[ind] = photos[getRandomIntInclusive(1, photos.length - 1)];
@@ -37,16 +45,25 @@ const photosGenerator = () => { // генерация фотографий ме�
   return photosArray;
 };
 
-const createAuthor = () => ({//создание информаци о арендодателе
+/**
+* Генерирует аватар арендодателя
+*/
+const createAuthor = () => ({
   avatar: `img/avatars/user0${getRandomIntInclusive(0, avatarPicNumber)}${'.png'.toString()}`,
 });
 
+/**
+* Генерирует координаты объекта проживания
+*/
 const createLocation = () => ({//создание координат
   lat: getRandomFloat(latMinimum, latMaximum, 4),
   lng: getRandomFloat(lngMinimum, lngMaximum, 4),
 });
 
-const createOffer = () => ({//формирование объявления
+/**
+* Генерирует объявление о сдаче
+*/
+const createOffer = () => ({
   title: 'Сдается жилье!',
   address: null,
   price: getRandomIntInclusive(1, maximumPerDayPrice),
@@ -55,9 +72,36 @@ const createOffer = () => ({//формирование объявления
   guests: getRandomIntInclusive(1, maximumGuests),
   checkin: getRandomIntInclusive(0, CHECK_IN_TIME.length - 1),
   checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
-  features: featuresGenerator(),
+  features: featuresGenerate(),
   description: 'Хороший вариант, Кекс одобряет!',
-  photos: photosGenerator(),
+  photos: photosGenerate(),
 });
 
-export {createAuthor, createLocation,createOffer};
+/**
+* Генерирует массив объявлений
+* @return {array[]}
+*/
+const advertisementsArrayGenerate = () => {
+  const tray =[];
+
+  for (let ind = 0; ind <= 9; ind++) {
+
+    const authorObj = createAuthor();
+    const locationObj = createLocation();
+    const offerObj = createOffer();
+
+    offerObj.address = `${locationObj.lat}, ${locationObj.lng}`;
+
+    const bookStay = {
+      author: authorObj,
+      offer: offerObj,
+      location: locationObj,
+    };
+    tray.push(bookStay);
+  }
+  return tray;
+};
+const advertisements = advertisementsArrayGenerate();
+
+
+export {createAuthor, createLocation,createOffer, advertisementsArrayGenerate,advertisements};
