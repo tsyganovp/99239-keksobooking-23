@@ -1,32 +1,30 @@
 import {getRandomIntInclusive, getRandomFloat} from './util.js';
 
 
-//переменные для работы программы
-const avatarPicNumber = 8;
-const maximumPerDayPrice = 1000;
-const maximumRooms = 5;
-const maximumGuests = 4;
+const AVATAR_PIC_NUMBERS = 8;
+const MAXIMUM_PER_DAY_PRICE = 1000;
+const MAXIMUM_ROMS = 5;
+const MAXIMUM_GUESTS = 4;
 const ROOM_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const CHECK_IN_TIME = ['12:00', '13:00', '14:00'];
 const CHECK_OUT_TIME = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const featuresArrLength = FEATURES.length;
-const numberOfPhotos = 10;
-const latMinimum = 35.65000;
-const latMaximum = 35.70000;
-const lngMinimum = 139.70000;
-const lngMaximum = 139.80000;
+const NUMBER_OF_PHOTOS = 10;
+const LAT_MINIMUM = 35.65000;
+const LAT_MAXIMUM = 35.70000;
+const LNG_MINIMUM = 139.70000;
+const LNG_MAXIMUM = 139.80000;
 
 /**
 * Генерирует массив особенностей объекта проживания
-* @return {array[]}
+* @return {string[]}
 */
-const featuresGenerate = () => {
+const createFeatures = () => {
   const featuresArray = [];
-  for (let ind = 0; ind <= getRandomIntInclusive(1, featuresArrLength); ind++) {
+  for (let ind = 0; ind <= getRandomIntInclusive(1, FEATURES.length); ind++) {
     const random = FEATURES[Math.floor(Math.random() * FEATURES.length)];
     featuresArray[ind] = random;
   }
@@ -37,27 +35,28 @@ const featuresGenerate = () => {
 * Генерирует массив строк с url'ами фотографий мест проживания
 * @return {string[]}
 */
-const photosGenerate = () => {
-  const photosArray = new Array(numberOfPhotos).fill(null);
-  for (let ind = 0; ind <= numberOfPhotos - 1; ind++) {
-    photosArray[ind] = photos[getRandomIntInclusive(1, photos.length - 1)];
+const createPhotos = () => {
+  const photosArray = new Array(NUMBER_OF_PHOTOS).fill(null);
+  for (let ind = 0; ind <= NUMBER_OF_PHOTOS - 1; ind++) {
+    photosArray[ind] = PHOTOS[getRandomIntInclusive(1, PHOTOS.length - 1)];
   }
   return photosArray;
 };
 
 /**
 * Генерирует аватар арендодателя
+* @return {string}
 */
 const createAuthor = () => ({
-  avatar: `img/avatars/user0${getRandomIntInclusive(0, avatarPicNumber)}${'.png'.toString()}`,
+  avatar: `img/avatars/user0${getRandomIntInclusive(0, AVATAR_PIC_NUMBERS)}${'.png'.toString()}`,
 });
 
 /**
 * Генерирует координаты объекта проживания
 */
 const createLocation = () => ({//создание координат
-  lat: getRandomFloat(latMinimum, latMaximum, 4),
-  lng: getRandomFloat(lngMinimum, lngMaximum, 4),
+  lat: getRandomFloat(LAT_MINIMUM, LAT_MAXIMUM, 4),
+  lng: getRandomFloat(LNG_MINIMUM, LNG_MAXIMUM, 4),
 });
 
 /**
@@ -66,23 +65,23 @@ const createLocation = () => ({//создание координат
 const createOffer = () => ({
   title: 'Сдается жилье!',
   address: null,
-  price: getRandomIntInclusive(1, maximumPerDayPrice),
+  price: getRandomIntInclusive(1, MAXIMUM_PER_DAY_PRICE),
   type: ROOM_TYPE[getRandomIntInclusive(0, ROOM_TYPE.length - 1)],
-  rooms: getRandomIntInclusive(1, maximumRooms),
-  guests: getRandomIntInclusive(1, maximumGuests),
+  rooms: getRandomIntInclusive(1, MAXIMUM_ROMS),
+  guests: getRandomIntInclusive(1, MAXIMUM_GUESTS),
   checkin: getRandomIntInclusive(0, CHECK_IN_TIME.length - 1),
   checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
-  features: featuresGenerate(),
+  features: createFeatures(),
   description: 'Хороший вариант, Кекс одобряет!',
-  photos: photosGenerate(),
+  photos: createPhotos(),
 });
 
 /**
 * Генерирует массив объявлений
 * @return {array[]}
 */
-const advertisementsArrayGenerate = () => {
-  const tray =[];
+const createOffers = () => {
+  const tray = [];
 
   for (let ind = 0; ind <= 9; ind++) {
 
@@ -101,7 +100,5 @@ const advertisementsArrayGenerate = () => {
   }
   return tray;
 };
-const advertisements = advertisementsArrayGenerate();
 
-
-export {createAuthor, createLocation,createOffer, advertisementsArrayGenerate,advertisements};
+export {createAuthor, createLocation,createOffer,createOffers};

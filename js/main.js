@@ -1,9 +1,6 @@
-import {createAuthor, createLocation,createOffer,advertisements} from './data.js';
+import {createOffers} from './data.js';
 
 
-createAuthor();
-createLocation();
-createOffer();
-
+const advertisements = createOffers();
 // eslint-disable-next-line no-console
 console.log(advertisements);
