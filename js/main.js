@@ -1,6 +1,5 @@
 import {createOffers} from './data.js';
+import {offerTemplate,test} from './offers.js';
 
-
-const advertisements = createOffers();
 // eslint-disable-next-line no-console
-console.log(advertisements);
+console.log(test);
