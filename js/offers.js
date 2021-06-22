@@ -79,7 +79,7 @@ if (offerFeatures === null) {
 if(offerDescription === null) {
     templateDescription.textContent = null;
 } else templateDescription.textContent = offerDescription;
-
+c
 templatePhotos.setAttribute('src', offerPhotos);
 templateAvatar.setAttribute('src', avatar);
 fragment.appendChild(offerElement);
