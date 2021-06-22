@@ -24,10 +24,26 @@ let offerTitle = advertisements[0].offer.title;
 let offerAddress = advertisements[0].offer.address;
 let offerPrice = advertisements[0].offer.price + ' ₽/ночь';
 let offerType = advertisements[0].offer.type;
+let offerRooms = advertisements[0].offer.rooms;
+let offerGuests = advertisements[0].offer.guests;
+let offerCheckIn = advertisements[0].offer.checkin;
+let offerCheckout = advertisements[0].offer.checkout;
+let offerFeatures = advertisements[0].offer.features;
+let offerDescription = advertisements[0].offer.description;
+let offerPhotos = advertisements[0].offer.photos[0];
+let avatar = advertisements[0].avatar;
 
-templateTitle.textContent = offerTitle;
-templateAddress.textContent = offerAddress;
-templatePrice.textContent = offerPrice;
+if(offerTitle === null) {
+    templateTitle.textContent = null;
+} else templateTitle.textContent = offerTitle;
+
+if(offerAddress === null) {
+    templateAddress.textContent = null;
+} else templateAddress.textContent = offerAddress;
+if(offerPrice === null) {
+    templatePrice.textContent = null;
+} else templatePrice.textContent = offerPrice;
+
 
 switch (offerType) {
     case 'flat':
@@ -45,20 +61,34 @@ switch (offerType) {
     case 'hotel':
         templateType.textContent = 'Отель';
         break;
+    case null:
+        templateType.textContent = '';
 }
-templateGuests.textContent = advertisements[0].offer.rooms + ' комнаты для ' + advertisements[0].offer.guests + ' гостей';
-templateTime.textContent = 'Заезд после ' + advertisements[0].offer.checkin + ', выезд до ' + advertisements[0].offer.checkout;
-templateFeatures.textContent = advertisements[0].offer.features;
-templateDescription.textContent = advertisements[0].offer.description;
-templatePhotos.setAttribute('src', advertisements[0].offer.photos[0]);
-templateAvatar.setAttribute('src', advertisements[0].avatar);
+if (offerRooms == null || offerGuests == null) {
+    templateGuests.textContent = null;
+} else templateGuests.textContent = offerRooms + ' комнаты для ' + offerGuests + ' гостей';
+
+if(offerCheckIn === null || offerCheckout === null) {
+    templateTime.textContent = '';
+} else templateTime.textContent = 'Заезд после ' + offerCheckIn + ', выезд до ' + offerCheckout;
+
+if (offerFeatures === null) {
+    templateFeatures.textContent = '';
+} else templateFeatures.textContent = offerFeatures;
+
+if(offerDescription === null) {
+    templateDescription.textContent = null;
+} else templateDescription.textContent = offerDescription;
+
+templatePhotos.setAttribute('src', offerPhotos);
+templateAvatar.setAttribute('src', avatar);
 fragment.appendChild(offerElement);
 
 mapCanvas.appendChild(fragment);
 
 
 
-let test = advertisements;
+let test = offerGuests;
 
 
 export { offerTemplate, test };
