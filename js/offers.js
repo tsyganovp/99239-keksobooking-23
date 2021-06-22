@@ -49,7 +49,9 @@ switch(offerType) {
 templateGuests.textContent = advertisements[0].offer.rooms + ' комнаты для ' + advertisements[0].offer.guests + ' гостей';
 templateTime.textContent = 'Заезд после ' + advertisements[0].offer.checkin + ', выезд до ' + advertisements[0].offer.checkout;
 templateFeatures.textContent = advertisements[0].offer.features;
-
+templateDescription.textContent = advertisements[0].offer.description;
+templatePhotos.setAttribute('src', advertisements[0].offer.photos[0]);
+templateAvatar.setAttribute('src', advertisements[0].avatar);
 fragment.appendChild(offerElement);
 mapCanvas.appendChild(fragment);
 
