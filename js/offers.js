@@ -1,4 +1,4 @@
-import {createOffers} from './data.js';
+import { createOffers } from './data.js';
 
 let offerTemplate = document.querySelector('#card').content; // находим содержимое шаблона
 let offerCard = offerTemplate.querySelector('.popup'); // находим объявление 
@@ -19,18 +19,18 @@ let templateDescription = offerElement.querySelector('.popup__description');
 let templatePhotos = offerElement.querySelector('.popup__photos');
 let templateAvatar = offerElement.querySelector('.popup__avatar');
 
+
 let offerTitle = advertisements[0].offer.title;
 let offerAddress = advertisements[0].offer.address;
 let offerPrice = advertisements[0].offer.price + ' ₽/ночь';
 let offerType = advertisements[0].offer.type;
 
-
 templateTitle.textContent = offerTitle;
 templateAddress.textContent = offerAddress;
 templatePrice.textContent = offerPrice;
 
-switch(offerType) {
-    case 'flat': 
+switch (offerType) {
+    case 'flat':
         templateType.textContent = 'Квартира';
         break;
     case 'bungalow':
@@ -53,6 +53,7 @@ templateDescription.textContent = advertisements[0].offer.description;
 templatePhotos.setAttribute('src', advertisements[0].offer.photos[0]);
 templateAvatar.setAttribute('src', advertisements[0].avatar);
 fragment.appendChild(offerElement);
+
 mapCanvas.appendChild(fragment);
 
 
@@ -60,4 +61,4 @@ mapCanvas.appendChild(fragment);
 let test = advertisements;
 
 
-export {offerTemplate,test};
+export { offerTemplate, test };
