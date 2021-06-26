@@ -21,4 +21,4 @@ const getRandomFloat = (min, max, numbersAfter) => {
 };
 
 
-export {getRandomIntInclusive, getRandomFloat};
+export { getRandomIntInclusive, getRandomFloat };

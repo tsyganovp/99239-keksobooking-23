@@ -1,4 +1,5 @@
 import { offerDraw } from './offers.js';
+import {createOffers} from './data.js';
 
 
-offerDraw();
+offerDraw(createOffers());

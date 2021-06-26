@@ -1,79 +1,89 @@
-import {
-  FRAGMENT, MAP_CANVAS,
-  OFFER_ELEMENT, TEMPLATE_TITLE, TEMPLATE_ADDRESS, TEMPLATE_PRICE, TEMPLATE_TYPE, TEMPLATE_GUESTS,
-  TEMPLATE_TIME, TEMPLATE_FEATURES, TEMPLATE_DESCRIPTION, TEMPLATE_PHOTO, TEMPLATE_AVATAR, OFFER_TITLE, OFFER_ADDRESS,
-  OFFER_PRICE, OFFER_TYPE, OFFER_ROOMS, OFFER_GUESTS, OFFER_CHECKIN, OFFER_CHECKOUT, OFFER_FEATURES,
-  OFFER_DESCRIPTION, OFFER_PHOTOS, AVATAR
-} from './data.js';
+import { roomType } from './data.js';
 
-const offerDraw = function () {
-  if (!OFFER_TITLE) {
-    TEMPLATE_TITLE.textContent = null;
-  } else {
-    TEMPLATE_TITLE.textContent = OFFER_TITLE;
+
+const offerDraw = function (ADVERTISEMENTS) {
+  for (let i = 0; i <= ADVERTISEMENTS.length - 1; i++) {
+    const offerTemplate = document.querySelector('#card').content; // находим содержимое шаблона
+    const offerCard = offerTemplate.querySelector('.popup'); // находим объявление
+    const fragment = document.createDocumentFragment();
+    const mapCanvas = document.querySelector('#map-canvas');
+    const offerElement = offerCard.cloneNode(true);
+    const templateTitle = offerElement.querySelector('.popup__title');
+    const templateAddress = offerElement.querySelector('.popup__text--address');
+    const templatePrice = offerElement.querySelector('.popup__text--price');
+    const templateType = offerElement.querySelector('.popup__type');
+    const templateGuests = offerElement.querySelector('.popup__text--capacity');
+    const templateTime = offerElement.querySelector('.popup__text--time');
+    const templateFeatures = offerElement.querySelector('.popup__features');
+    const templateDescription = offerElement.querySelector('.popup__description');
+    const templatePhoto = offerElement.querySelector('.popup__photo');
+    const templateAvatar = offerElement.querySelector('.popup__avatar');
+
+    const offerTitle = ADVERTISEMENTS[i].offer.title;
+    const offerAddress = ADVERTISEMENTS[i].offer.address;
+    const offerPrice = `${ADVERTISEMENTS[i].offer.price} ₽/ночь`;
+    const offerType = ADVERTISEMENTS[i].offer.type;
+    const offerRooms = ADVERTISEMENTS[i].offer.rooms;
+    const offerGuests = ADVERTISEMENTS[i].offer.guests;
+    const offerCheckin = ADVERTISEMENTS[i].offer.checkin;
+    const offerCheckout = ADVERTISEMENTS[i].offer.checkout;
+    const offerFeatures = ADVERTISEMENTS[i].offer.features;
+    const offerDescription = ADVERTISEMENTS[i].offer.description;
+    const offerPhotos = ADVERTISEMENTS[i].offer.photos[i];
+    const avatar = ADVERTISEMENTS[i].author.avatar;
+
+    if (!offerTitle) {
+      templateTitle.textContent = null;
+    } else {
+      templateTitle.textContent = offerTitle;
+    }
+
+    if (!offerAddress) {
+      templateAddress.textContent = null;
+    } else {
+      templateAddress.textContent = offerAddress;
+    }
+
+    if (!offerPrice) {
+      templatePrice.textContent = null;
+    } else {
+      templatePrice.textContent = offerPrice;
+    }
+
+    if (offerType) {
+      templateType.textContent = roomType.get(offerType);
+    }
+
+    if (!offerRooms || !offerGuests) {
+      templateGuests.textContent = null;
+    } else {
+      templateGuests.textContent = `${offerRooms} комнаты для ${offerGuests} гостей`;
+    }
+
+    if (!offerCheckin || !offerCheckout) {
+      templateTime.textContent = '';
+    } else {
+      templateTime.textContent = `Заезд после ${offerCheckin}, выезд до ${offerCheckout}`;
+    }
+
+    if (!offerFeatures) {
+      templateFeatures.textContent = '';
+    } else {
+      templateFeatures.textContent = offerFeatures;
+    }
+
+    if (!offerDescription) {
+      templateDescription.textContent = null;
+    } else {
+      templateDescription.textContent = offerDescription;
+    }
+
+    templatePhoto.src = offerPhotos;
+    templateAvatar.src = avatar;
+    fragment.appendChild(offerElement);
+    mapCanvas.appendChild(fragment);
   }
-
-  if (!OFFER_ADDRESS) {
-    TEMPLATE_ADDRESS.textContent = null;
-  } else {
-    TEMPLATE_ADDRESS.textContent = OFFER_ADDRESS;
-  }
-
-  if (!OFFER_PRICE) {
-    TEMPLATE_PRICE.textContent = null;
-  } else {
-    TEMPLATE_PRICE.textContent = OFFER_PRICE;
-  }
-
-  switch (OFFER_TYPE) {
-    case 'flat':
-      TEMPLATE_TYPE.textContent = 'Квартира';
-      break;
-    case 'bungalow':
-      TEMPLATE_TYPE.textContent = 'Бунгало';
-      break;
-    case 'house':
-      TEMPLATE_TYPE.textContent = 'Дом';
-      break;
-    case 'palace':
-      TEMPLATE_TYPE.textContent = 'Дворец';
-      break;
-    case 'hotel':
-      TEMPLATE_TYPE.textContent = 'Отель';
-      break;
-    case false:
-      TEMPLATE_TYPE.textContent = '';
-  }
-
-  if (!OFFER_ROOMS || !OFFER_GUESTS) {
-    TEMPLATE_GUESTS.textContent = null;
-  } else {
-    TEMPLATE_GUESTS.textContent = `${OFFER_ROOMS  } комнаты для ${  OFFER_GUESTS  } гостей`;
-  }
-
-  if (!OFFER_CHECKIN || !OFFER_CHECKOUT) {
-    TEMPLATE_TIME.textContent = '';
-  } else {
-    TEMPLATE_TIME.textContent = `Заезд после ${  OFFER_CHECKIN  }, выезд до ${  OFFER_CHECKOUT}`;
-  }
-
-  if (!OFFER_FEATURES) {
-    TEMPLATE_FEATURES.textContent = '';
-  } else {
-    TEMPLATE_FEATURES.textContent = OFFER_FEATURES;
-  }
-
-  if (!OFFER_DESCRIPTION) {
-    TEMPLATE_DESCRIPTION.textContent = null;
-  } else {
-    TEMPLATE_DESCRIPTION.textContent = OFFER_DESCRIPTION;
-  }
-
-  TEMPLATE_PHOTO.src = OFFER_PHOTOS;
-  TEMPLATE_AVATAR.src = AVATAR;
-  FRAGMENT.appendChild(OFFER_ELEMENT);
-  MAP_CANVAS.appendChild(FRAGMENT);
 };
 
 
-export {offerDraw};
+export { offerDraw };
