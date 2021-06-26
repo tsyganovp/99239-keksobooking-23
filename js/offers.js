@@ -1,94 +1,101 @@
 import { createOffers } from './data.js';
 
-let offerTemplate = document.querySelector('#card').content; // находим содержимое шаблона
-let offerCard = offerTemplate.querySelector('.popup'); // находим объявление 
-const fragment = document.createDocumentFragment();
-let mapCanvas = document.querySelector('#map-canvas');
-const advertisements = createOffers();
 
-let offerElement = offerCard.cloneNode(true);
+const OFFER_TEMPLATE = document.querySelector('#card').content; // находим содержимое шаблона
+const OFFER_CARD = OFFER_TEMPLATE.querySelector('.popup'); // находим объявление 
+const FRAGMENT = document.createDocumentFragment();
+const MAP_CANVAS = document.querySelector('#map-canvas');
+const ADVERTISEMENTS = createOffers();
+const OFFER_ELEMENT = OFFER_CARD.cloneNode(true);
+const TEMPLATE_TITLE = OFFER_ELEMENT.querySelector('.popup__title');
+const TEMPLATE_ADDRESS = OFFER_ELEMENT.querySelector('.popup__text--address');
+const TEMPLATE_PRICE = OFFER_ELEMENT.querySelector('.popup__text--price');
+const TEMPLATE_TYPE = OFFER_ELEMENT.querySelector('.popup__type');
+const TEMPLATE_GUESTS = OFFER_ELEMENT.querySelector('.popup__text--capacity');
+const TEMPLATE_TIME = OFFER_ELEMENT.querySelector('.popup__text--time');
+const TEMPLATE_FEATURES = OFFER_ELEMENT.querySelector('.popup__features');
+const TEMPLATE_DESCRIPTION = OFFER_ELEMENT.querySelector('.popup__description');
+const TEMPLATE_PHOTO = OFFER_ELEMENT.querySelector('.popup__photo');
+const TEMPLATE_AVATAR = OFFER_ELEMENT.querySelector('.popup__avatar');
 
-let templateTitle = offerElement.querySelector('.popup__title');
-let templateAddress = offerElement.querySelector('.popup__text--address');
-let templatePrice = offerElement.querySelector('.popup__text--price');
-let templateType = offerElement.querySelector('.popup__type');
-let templateGuests = offerElement.querySelector('.popup__text--capacity');
-let templateTime = offerElement.querySelector('.popup__text--time');
-let templateFeatures = offerElement.querySelector('.popup__features');
-let templateDescription = offerElement.querySelector('.popup__description');
-let templatePhotos = offerElement.querySelector('.popup__photos');
-let templateAvatar = offerElement.querySelector('.popup__avatar');
+const OFFER_TITLE = ADVERTISEMENTS[0].offer.title;
+const OFFER_ADDRESS = ADVERTISEMENTS[0].offer.address;
+const OFFER_PRICE = ADVERTISEMENTS[0].offer.price + ' ₽/ночь';
+const OFFER_TYPE = ADVERTISEMENTS[0].offer.type;
+const OFFER_ROOMS = ADVERTISEMENTS[0].offer.rooms;
+const OFFER_GUESTS = ADVERTISEMENTS[0].offer.guests;
+const OFFER_CHECKIN = ADVERTISEMENTS[0].offer.checkin;
+const OFFER_CHECKOUT = ADVERTISEMENTS[0].offer.checkout;
+const OFFER_FEATURES = ADVERTISEMENTS[0].offer.features;
+const OFFER_DESCRIPTION = ADVERTISEMENTS[0].offer.description;
+const OFFER_PHOTOS = ADVERTISEMENTS[0].offer.photos[0];
+const AVATAR = ADVERTISEMENTS[0].author.avatar;
 
+if (!OFFER_TITLE) {
+    TEMPLATE_TITLE.textContent = null;
+} else {
+    TEMPLATE_TITLE.textContent = OFFER_TITLE;
+}
 
-let offerTitle = advertisements[0].offer.title;
-let offerAddress = advertisements[0].offer.address;
-let offerPrice = advertisements[0].offer.price + ' ₽/ночь';
-let offerType = advertisements[0].offer.type;
-let offerRooms = advertisements[0].offer.rooms;
-let offerGuests = advertisements[0].offer.guests;
-let offerCheckIn = advertisements[0].offer.checkin;
-let offerCheckout = advertisements[0].offer.checkout;
-let offerFeatures = advertisements[0].offer.features;
-let offerDescription = advertisements[0].offer.description;
-let offerPhotos = advertisements[0].offer.photos[0];
-let avatar = advertisements[0].avatar;
+if (!OFFER_ADDRESS) {
+    TEMPLATE_ADDRESS.textContent = null;
+} else {
+    TEMPLATE_ADDRESS.textContent = OFFER_ADDRESS;
+}
 
-if(offerTitle === null) {
-    templateTitle.textContent = null;
-} else templateTitle.textContent = offerTitle;
+if (!OFFER_PRICE) {
+    TEMPLATE_PRICE.textContent = null;
+} else {
+    TEMPLATE_PRICE.textContent = OFFER_PRICE;
+}
 
-if(offerAddress === null) {
-    templateAddress.textContent = null;
-} else templateAddress.textContent = offerAddress;
-if(offerPrice === null) {
-    templatePrice.textContent = null;
-} else templatePrice.textContent = offerPrice;
-
-
-switch (offerType) {
+switch (OFFER_TYPE) {
     case 'flat':
-        templateType.textContent = 'Квартира';
+        TEMPLATE_TYPE.textContent = 'Квартира';
         break;
     case 'bungalow':
-        templateType.textContent = 'Бунгало';
+        TEMPLATE_TYPE.textContent = 'Бунгало';
         break;
     case 'house':
-        templateType.textContent = 'Дом';
+        TEMPLATE_TYPE.textContent = 'Дом';
         break;
     case 'palace':
-        templateType.textContent = 'Дворец';
+        TEMPLATE_TYPE.textContent = 'Дворец';
         break;
     case 'hotel':
-        templateType.textContent = 'Отель';
+        TEMPLATE_TYPE.textContent = 'Отель';
         break;
-    case null:
-        templateType.textContent = '';
+    case false:
+        TEMPLATE_TYPE.textContent = '';
 }
-if (offerRooms == null || offerGuests == null) {
-    templateGuests.textContent = null;
-} else templateGuests.textContent = offerRooms + ' комнаты для ' + offerGuests + ' гостей';
+if (!OFFER_ROOMS || !OFFER_GUESTS) {
+    TEMPLATE_GUESTS.textContent = null;
+} else {
+    TEMPLATE_GUESTS.textContent = OFFER_ROOMS + ' комнаты для ' + OFFER_GUESTS + ' гостей';
+}
 
-if(offerCheckIn === null || offerCheckout === null) {
-    templateTime.textContent = '';
-} else templateTime.textContent = 'Заезд после ' + offerCheckIn + ', выезд до ' + offerCheckout;
+if (!OFFER_CHECKIN || !OFFER_CHECKOUT) {
+    TEMPLATE_TIME.textContent = '';
+} else {
+    TEMPLATE_TIME.textContent = 'Заезд после ' + OFFER_CHECKIN + ', выезд до ' + OFFER_CHECKOUT;
+}
 
-if (offerFeatures === null) {
-    templateFeatures.textContent = '';
-} else templateFeatures.textContent = offerFeatures;
+if (!OFFER_FEATURES) {
+    TEMPLATE_FEATURES.textContent = '';
+} else {
+    TEMPLATE_FEATURES.textContent = OFFER_FEATURES;
+}
 
-if(offerDescription === null) {
-    templateDescription.textContent = null;
-} else templateDescription.textContent = offerDescription;
-c
-templatePhotos.setAttribute('src', offerPhotos);
-templateAvatar.setAttribute('src', avatar);
-fragment.appendChild(offerElement);
+if (!OFFER_DESCRIPTION) {
+    TEMPLATE_DESCRIPTION.textContent = null;
+} else {
+    TEMPLATE_DESCRIPTION.textContent = OFFER_DESCRIPTION;
+}
 
-mapCanvas.appendChild(fragment);
-
-
-
-let test = offerGuests;
+TEMPLATE_PHOTO.src = OFFER_PHOTOS;
+TEMPLATE_AVATAR.src = AVATAR;
+FRAGMENT.appendChild(OFFER_ELEMENT);
+MAP_CANVAS.appendChild(FRAGMENT);
 
 
-export { offerTemplate, test };
+export { OFFER_TEMPLATE };
