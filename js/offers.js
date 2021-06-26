@@ -19,6 +19,7 @@ const TEMPLATE_PHOTO = OFFER_ELEMENT.querySelector('.popup__photo');
 const TEMPLATE_AVATAR = OFFER_ELEMENT.querySelector('.popup__avatar');
 
 const OFFER_TITLE = ADVERTISEMENTS[0].offer.title;
+//const OFFER_TITLE = undefined;
 const OFFER_ADDRESS = ADVERTISEMENTS[0].offer.address;
 const OFFER_PRICE = ADVERTISEMENTS[0].offer.price + ' ₽/ночь';
 const OFFER_TYPE = ADVERTISEMENTS[0].offer.type;
