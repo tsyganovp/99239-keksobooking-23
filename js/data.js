@@ -1,6 +1,9 @@
-import {getRandomIntInclusive, getRandomFloat} from './util.js';
+import { getRandomIntInclusive, getRandomFloat } from './util.js';
 
 
+/*
+Переменне для генерации объявления
+*/
 const AVATAR_PIC_NUMBERS = 8;
 const MAXIMUM_PER_DAY_PRICE = 1000;
 const MAXIMUM_ROMS = 5;
@@ -18,17 +21,32 @@ const LAT_MAXIMUM = 35.70000;
 const LNG_MINIMUM = 139.70000;
 const LNG_MAXIMUM = 139.80000;
 
+const roomType = new Map([
+  ['palace', 'Дворец'],
+  ['flat', 'Квартира'],
+  ['house', 'Дом'],
+  ['bungalow', 'Бунгало'],
+  ['hotel', 'Отель'],
+]);
+
 /**
 * Генерирует массив особенностей объекта проживания
 * @return {string[]}
 */
+
 const createFeatures = () => {
   const featuresArray = [];
   for (let ind = 0; ind <= getRandomIntInclusive(1, FEATURES.length); ind++) {
     const random = FEATURES[Math.floor(Math.random() * FEATURES.length)];
     featuresArray[ind] = random;
   }
-  return Array.from(new Set(featuresArray.map((item) => item.trim())));//поиск и удаление дублей из массива featuresArray
+
+  const temp = Array.from(new Set(featuresArray.map((item) => item.trim())));
+  const result = [];
+  for (let i = 0; i <= temp.length - 1; i++) {
+    result.push(` ${  temp[i]}`);
+  }
+  return result;
 };
 
 /**
@@ -69,8 +87,8 @@ const createOffer = () => ({
   type: ROOM_TYPE[getRandomIntInclusive(0, ROOM_TYPE.length - 1)],
   rooms: getRandomIntInclusive(1, MAXIMUM_ROMS),
   guests: getRandomIntInclusive(1, MAXIMUM_GUESTS),
-  checkin: getRandomIntInclusive(0, CHECK_IN_TIME.length - 1),
-  checkout: getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1),
+  checkin: CHECK_IN_TIME[getRandomIntInclusive(0, CHECK_IN_TIME.length - 1)],
+  checkout: CHECK_OUT_TIME[getRandomIntInclusive(0, CHECK_OUT_TIME.length - 1)],
   features: createFeatures(),
   description: 'Хороший вариант, Кекс одобряет!',
   photos: createPhotos(),
@@ -101,4 +119,5 @@ const createOffers = () => {
   return tray;
 };
 
-export {createAuthor, createLocation,createOffer,createOffers};
+
+export { createAuthor, createLocation, createOffer, createOffers, roomType };
