@@ -32,4 +32,4 @@ const setEnable = function() {
 
 }
 
-export {setDisable, setEnable};ыы
+export {setDisable, setEnable};
