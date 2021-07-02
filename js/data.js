@@ -21,6 +21,15 @@ const LAT_MAXIMUM = 35.70000;
 const LNG_MINIMUM = 139.70000;
 const LNG_MAXIMUM = 139.80000;
 
+// TODO
+const roomTypeToTitle = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
+};
+
 const roomType = new Map([
   ['palace', 'Дворец'],
   ['flat', 'Квартира'],

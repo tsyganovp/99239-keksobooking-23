@@ -1,10 +1,18 @@
-import { roomType } from './data.js';
+import { roomType } from './data.js'; 
 
 
+
+// TODO
+// 1. Функция должна работать с единичным объектом
+// 2. Все функции стрелочные
+// 3. Избавиться от fragment'а, так как он нужен для вставки множества элементов в DOM
+// 4. textContent = null => remove node element
+// 5. features по разметке
 const offerDraw = function (ADVERTISEMENTS) {
   for (let i = 0; i <= ADVERTISEMENTS.length - 1; i++) {
     const offerTemplate = document.querySelector('#card').content; // находим содержимое шаблона
     const offerCard = offerTemplate.querySelector('.popup'); // находим объявление
+    // 3.
     const fragment = document.createDocumentFragment();
     const mapCanvas = document.querySelector('#map-canvas');
     const offerElement = offerCard.cloneNode(true);
@@ -19,6 +27,8 @@ const offerDraw = function (ADVERTISEMENTS) {
     const templatePhoto = offerElement.querySelector('.popup__photo');
     const templateAvatar = offerElement.querySelector('.popup__avatar');
 
+    ADVERTISEMENTS[i].offer.title = '';
+
     const offerTitle = ADVERTISEMENTS[i].offer.title;
     const offerAddress = ADVERTISEMENTS[i].offer.address;
     const offerPrice = `${ADVERTISEMENTS[i].offer.price} ₽/ночь`;
@@ -32,6 +42,7 @@ const offerDraw = function (ADVERTISEMENTS) {
     const offerPhotos = ADVERTISEMENTS[i].offer.photos[i];
     const avatar = ADVERTISEMENTS[i].author.avatar;
 
+    // 4
     if (!offerTitle) {
       templateTitle.textContent = null;
     } else {
@@ -51,7 +62,8 @@ const offerDraw = function (ADVERTISEMENTS) {
     }
 
     if (offerType) {
-      templateType.textContent = roomType.get(offerType);
+      // templateType.textContent = roomType.get(offerType);
+      templateType.textContent = roomType[offerType];
     }
 
     if (!offerRooms || !offerGuests) {
@@ -69,7 +81,38 @@ const offerDraw = function (ADVERTISEMENTS) {
     if (!offerFeatures) {
       templateFeatures.textContent = '';
     } else {
+      // 5
       templateFeatures.textContent = offerFeatures;
+      
+      // Очистить список
+      templateFeatures.innerHTML = '';  
+      // вывести свои
+      
+
+      // for (const feature of ADVERTISEMENTS[i].offer.features) {
+        
+      // }
+
+      // .map()
+      // function ()
+      // () => {
+      // }
+
+      // const feature;
+      // const element = document.createElement('li');
+      // element.classList.add('popup__feature', `popup__feature--${feature}`);
+      // return element;
+
+      // `<li class="popup__feature popup__feature--${feature}"></li>`
+
+      let featuresTemplate = offerFeatures.map((feature) => {
+        return `<li class="popup__feature popup__feature--${feature}"></li>`;
+      }).join('');
+      
+      templateFeatures.innerHTML = featuresTemplate;
+      // .map - дает новый массив с изменениями по твоему алгоритму, не меняя длинны массива
+      // .filter
+      // есть ряд методов для проверок соответствия всех или одного любого элемента условию
     }
 
     if (!offerDescription) {
