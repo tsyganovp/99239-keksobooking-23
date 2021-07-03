@@ -39,7 +39,7 @@ const renderCard = (card) => {
   }
 
   if (!offerAddress) {
-    templateAddress.remove()
+    templateAddress.remove();
   } else {
     templateAddress.textContent = offerAddress;
   }
@@ -79,12 +79,10 @@ const renderCard = (card) => {
   } else {
     templateFeatures.innerHTML = '';
 
-    offerFeatures.forEach(feature => {
+    offerFeatures.forEach((item) => {
       const element = document.createElement('li');
-      element.classList.add('popup__feature', `popup__feature--${feature}`);
-      let featuresTemplate = offerFeatures.map((feature) => {
-        return `<li class="popup__feature popup__feature--${feature}"></li>`;
-      }).join('');
+      element.classList.add('popup__feature', `popup__feature--${item}`);
+      const featuresTemplate = offerFeatures.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join('');
       templateFeatures.innerHTML = featuresTemplate;
     });
 
@@ -93,7 +91,7 @@ const renderCard = (card) => {
   templatePhoto.src = offerPhotos;
   templateAvatar.src = avatar;
   mapCanvas.append(offerElement);
-}
+};
 
 
 export { renderCard };

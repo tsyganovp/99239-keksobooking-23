@@ -1,5 +1,6 @@
 import { renderCard } from './offers.js';
 import { createOffers } from './data.js';
+//eslint-disable-next-line no-unused-vars
 import { setDisableForm, setEnableForm } from './form.js';
 
 
@@ -9,8 +10,7 @@ console.log(offers);
 
 renderCard(offers[1]);
 setDisableForm();
-//setEnable();
-
+//setEnableForm();
 
 
 // Result
