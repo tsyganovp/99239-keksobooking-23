@@ -30,14 +30,6 @@ const roomTypeToTitle = {
   hotel: 'Отель',
 };
 
-const roomType = new Map([
-  ['palace', 'Дворец'],
-  ['flat', 'Квартира'],
-  ['house', 'Дом'],
-  ['bungalow', 'Бунгало'],
-  ['hotel', 'Отель'],
-]);
-
 /**
 * Генерирует массив особенностей объекта проживания
 * @return {string[]}
@@ -51,11 +43,7 @@ const createFeatures = () => {
   }
 
   const temp = Array.from(new Set(featuresArray.map((item) => item.trim())));
-  const result = [];
-  for (let i = 0; i <= temp.length - 1; i++) {
-    result.push(` ${  temp[i]}`);
-  }
-  return result;
+  return temp;
 };
 
 /**
@@ -129,4 +117,4 @@ const createOffers = () => {
 };
 
 
-export { createAuthor, createLocation, createOffer, createOffers, roomType };
+export { createAuthor, createLocation, createOffer, createOffers, roomTypeToTitle };

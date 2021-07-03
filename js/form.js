@@ -1,15 +1,10 @@
-//let mapBlock = document.querySelector('.map__canvas');
 let form = document.querySelector('.ad-form');
 let formFieldsets = form.querySelectorAll('fieldset');
 let formFilter = document.querySelector('.map__filters');
 let formSelets = formFilter.querySelectorAll('select');
 let formFields = formFilter.querySelectorAll('fieldset');
 
-// TODO
-// 1. Нормальный циклы, forEach || методы массивы || for of
-// 2. Никаких setAttribute => api
-// .src .disabled = true .на-любой-чих
-const setDisable = function () {
+const setDisableForm = () => {
   form.classList.add('ad-form--disabled');
 
   formFieldsets.forEach(formField => {
@@ -27,7 +22,7 @@ const setDisable = function () {
   });
 }
 
-const setEnable = function() {
+const setEnableForm = () => {
   form.classList.remove('ad-form--disabled');
 
   formFieldsets.forEach(formField => {
@@ -46,4 +41,9 @@ const setEnable = function() {
 
 }
 
-export {setDisable, setEnable};
+
+export {setDisableForm, setEnableForm};
+// TODO
+// 1. Нормальный циклы, forEach || методы массивы || for of
+// 2. Никаких setAttribute => api
+// .src .disabled = true .на-любой-чих
