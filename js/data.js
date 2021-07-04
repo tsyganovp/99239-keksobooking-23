@@ -30,6 +30,14 @@ const roomTypeToTitle = {
   hotel: 'Отель',
 };
 
+const roomTypeToMinPrice = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+  hotel: 3000,
+};
+
 /**
 * Генерирует массив особенностей объекта проживания
 * @return {string[]}
@@ -117,4 +125,4 @@ const createOffers = () => {
 };
 
 
-export { createAuthor, createLocation, createOffer, createOffers, roomTypeToTitle };
+export { createAuthor, createLocation, createOffer, createOffers, roomTypeToTitle, roomTypeToMinPrice };
