@@ -9,7 +9,7 @@ const offers = createOffers();
 console.log(offers);
 
 renderCard(offers[1]);
-setDisableForm();
+//setDisableForm();
 //setEnableForm();
 
 
