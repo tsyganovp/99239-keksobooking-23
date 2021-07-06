@@ -12,6 +12,8 @@ const stayTypeInput = document.getElementById('type');
 const roomsInput = document.getElementById('room_number');
 const guestsInput = document.getElementById('capacity');
 //const submitButton = document.querySelector('.ad-form__submit');
+const checkInTime  = document.getElementById('timein');
+const checkOutTime  = document.getElementById('timeout');
 
 const setDisableForm = () => {
   form.classList.add('ad-form--disabled');
@@ -70,6 +72,7 @@ const validationForm = () => {
   stayTypeInput.addEventListener('change', () => {
     inputType = stayTypeInput.value;
     minimalPrice = roomTypeToMinPrice[inputType];
+    priceInput.placeholder = `${minimalPrice}`;
   });
 
   roomsInput.addEventListener('change', () => {
@@ -117,6 +120,10 @@ const validationForm = () => {
 
     priceInput.reportValidity();
   });
+
+  checkInTime.addEventListener('change', () => {
+    checkOutTime.value = checkInTime.value;
+  })
 };
 
 
