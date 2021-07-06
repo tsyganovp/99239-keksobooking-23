@@ -123,7 +123,11 @@ const validationForm = () => {
 
   checkInTime.addEventListener('change', () => {
     checkOutTime.value = checkInTime.value;
-  })
+  });
+
+  checkOutTime.addEventListener('change', () => {
+    checkInTime.value = checkOutTime.value;
+  });
 };
 
 
