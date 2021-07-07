@@ -21,7 +21,6 @@ const LAT_MAXIMUM = 35.70000;
 const LNG_MINIMUM = 139.70000;
 const LNG_MAXIMUM = 139.80000;
 
-// TODO
 const roomTypeToTitle = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -77,7 +76,7 @@ const createAuthor = () => ({
 /**
 * Генерирует координаты объекта проживания
 */
-const createLocation = () => ({//создание координат
+const createLocation = () => ({
   lat: getRandomFloat(LAT_MINIMUM, LAT_MAXIMUM, 4),
   lng: getRandomFloat(LNG_MINIMUM, LNG_MAXIMUM, 4),
 });
@@ -101,7 +100,7 @@ const createOffer = () => ({
 
 /**
 * Генерирует массив объявлений
-* @return {array[]}
+* @return {[]}
 */
 const createOffers = () => {
   const tray = [];

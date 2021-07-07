@@ -1,10 +1,11 @@
 import { roomTypeToTitle } from './data.js';
 
 
+const mapCanvas = document.querySelector('#map-canvas');
+const offerTemplate = document.querySelector('#card').content;
+
 const renderCard = (card) => {
-  const offerTemplate = document.querySelector('#card').content;
   const offerCard = offerTemplate.querySelector('.popup');
-  const mapCanvas = document.querySelector('#map-canvas');
   const offerElement = offerCard.cloneNode(true);
   const templateTitle = offerElement.querySelector('.popup__title');
   const templateAddress = offerElement.querySelector('.popup__text--address');
@@ -16,12 +17,10 @@ const renderCard = (card) => {
   const templateDescription = offerElement.querySelector('.popup__description');
   const templatePhoto = offerElement.querySelector('.popup__photo');
   const templateAvatar = offerElement.querySelector('.popup__avatar');
-
-  card.offer.title = '';
-
+  
   const offerTitle = card.offer.title;
   const offerAddress = card.offer.address;
-  const offerPrice = `${card.offer.price} ₽/ночь`;
+  const offerPrice = card.offer.price; 
   const offerType = card.offer.type;
   const offerRooms = card.offer.rooms;
   const offerGuests = card.offer.guests;
@@ -46,11 +45,10 @@ const renderCard = (card) => {
   if (!offerPrice) {
     templatePrice.remove();
   } else {
-    templatePrice.textContent = offerPrice;
+    templatePrice.textContent = `${offerPrice} ₽/ночь`;
   }
 
   if (!offerType) {
-
     templateType.remove();
   } else {
     templateType.textContent = roomTypeToTitle[offerType];
@@ -88,6 +86,8 @@ const renderCard = (card) => {
 
   }
 
+  // TODO
+  // 1. Если нет фотографий и аватарки?
   templatePhoto.src = offerPhotos;
   templateAvatar.src = avatar;
   mapCanvas.append(offerElement);
@@ -95,9 +95,3 @@ const renderCard = (card) => {
 
 
 export { renderCard };
-// TODO
-// 1. Функция должна работать с единичным объектом
-// 2. Все функции стрелочные
-// 3. Избавиться от fragment'а, так как он нужен для вставки множества элементов в DOM
-// 4. textContent = null => remove node element
-// 5. features по разметке

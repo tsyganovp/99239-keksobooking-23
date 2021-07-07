@@ -4,7 +4,7 @@ import { roomTypeToMinPrice } from './data.js';
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
 const formFilter = document.querySelector('.map__filters');
-const formSelets = formFilter.querySelectorAll('select');
+const formSelects = formFilter.querySelectorAll('select');
 const formFields = formFilter.querySelectorAll('fieldset');
 
 const priceInput = document.getElementById('price');
@@ -24,7 +24,7 @@ const setDisableForm = () => {
 
   formFilter.classList.add('map__filters--disabled');
 
-  formSelets.forEach((item) => {
+  formSelects.forEach((item) => {
     item.disabled = true;
   });
 
@@ -32,6 +32,7 @@ const setDisableForm = () => {
     item.disabled = true;
   });
 };
+
 
 const setEnableForm = () => {
   form.classList.remove('ad-form--disabled');
@@ -40,39 +41,45 @@ const setEnableForm = () => {
     formField.disabled = false;
   });
 
-  formFilter.classList.add('map__filters--disabled');
+  formFilter.classList.remove('map__filters--disabled');
+
+  formSelects.forEach((item) => {
+    item.disabled = false;
+  });
 
   formFields.forEach((item) => {
     item.disabled = false;
   });
-
-  form.forEach((item) => {
-    item.disabled = false;
-  });
-
 };
 
+// TODO
+// 1. Убрать maxValue
+// 2. inputType, minimalPrce, rooms, guests убрать 
+// 3. переименовать функцию (initFormValidation, setFormValidation)
+// 4. if (rooms !== guests) { ... вынести в функцию, потому что этот шаг повторяется 3 раза
+// 5. поправить начальный placeholder у цены и начальное min ограничение у цены для Квартиры (прваить в HTML)
+// 6. при изменении типа меняется не только placholder, но и min
+// 7. составить одно правильное условие
+// 8. удалить, потому что валидация опредеяется через атрибут min, который меняется при изменении типа дилья в алгоритме
 const validationForm = () => {
-
   const maxValue = 1000000;
-  let inputType = null;
+  let inputType = stayTypeInput.value;
   let minimalPrice = null;
   let rooms = roomsInput.value;
   let guests = guestsInput.value;
-
 
   if (rooms !== guests) {
     roomsInput.setCustomValidity(`Число комнат не соответствует количеству гостей`);
   } else {
     roomsInput.setCustomValidity('');
   }
-  roomsInput.reportValidity();
-
+  // const test = roomsInput.reportValidity();
 
   stayTypeInput.addEventListener('change', () => {
     inputType = stayTypeInput.value;
     minimalPrice = roomTypeToMinPrice[inputType];
     priceInput.placeholder = `${minimalPrice}`;
+    // 6.
   });
 
   roomsInput.addEventListener('change', () => {
@@ -91,6 +98,7 @@ const validationForm = () => {
     guests = guestsInput.value;
     console.log(rooms);
     console.log(guests);
+    // 7.
     if (rooms !== guests) {
       guestsInput.setCustomValidity(`Число гостей не соответствует количеству комнат`);
     } else {
@@ -104,6 +112,7 @@ const validationForm = () => {
     guestsInput.reportValidity();
   });
 
+  // 8.
   priceInput.addEventListener('change', () => {
     let userInputValue = priceInput.value;
     minimalPrice = roomTypeToMinPrice[inputType];
@@ -132,7 +141,3 @@ const validationForm = () => {
 
 
 export { setDisableForm, setEnableForm, validationForm };
-// TODO
-// 1. Нормальный циклы, forEach || методы массивы || for of
-// 2. Никаких setAttribute => api
-// .src .disabled = true .на-любой-чих
