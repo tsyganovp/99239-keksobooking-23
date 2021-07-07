@@ -1,7 +1,7 @@
 import { renderCard } from './offers.js';
 import { createOffers } from './data.js';
 //eslint-disable-next-line no-unused-vars
-import { setDisableForm, setEnableForm,validationForm } from './form.js';
+import { setDisableForm, setEnableForm,setFormValidation } from './form.js';
 
 
 const offers = createOffers();
@@ -12,9 +12,7 @@ renderCard(offers[1]);
 setDisableForm();
 setEnableForm();
 
-
-
-validationForm();
+setFormValidation();
 
 
 // Result
