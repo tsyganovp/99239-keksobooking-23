@@ -1,6 +1,4 @@
-import {
-  roomTypeToMinPrice
-} from './data.js';
+import { roomTypeToMinPrice } from './data.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -12,19 +10,17 @@ const priceInput = document.getElementById('price');
 const stayTypeInput = document.getElementById('type');
 const roomsInput = document.getElementById('room_number');
 const guestsInput = document.getElementById('capacity');
-//const submitButton = document.querySelector('.ad-form__submit');
 const checkInTime = document.getElementById('timein');
 const checkOutTime = document.getElementById('timeout');
+const submitButton = document.querySelector('.ad-form__submit');
 
 const setDisableForm = () => {
   form.classList.add('ad-form--disabled');
-
   formFieldsets.forEach((formField) => {
     formField.disabled = true;
   });
 
   formFilter.classList.add('map__filters--disabled');
-
   formSelects.forEach((item) => {
     item.disabled = true;
   });
@@ -37,16 +33,15 @@ const setDisableForm = () => {
 
 const setEnableForm = () => {
   form.classList.remove('ad-form--disabled');
-
   formFieldsets.forEach((formField) => {
     formField.disabled = false;
   });
 
   formFilter.classList.remove('map__filters--disabled');
-
   formSelects.forEach((item) => {
     item.disabled = false;
   });
+
 
   formFields.forEach((item) => {
     item.disabled = false;
@@ -64,7 +59,6 @@ const setEnableForm = () => {
 // 8. удалить, потому что валидация опредеяется через атрибут min, который меняется при изменении типа дилья в алгоритме ок
 
 const compareGuestsAndRooms = () => {
-
   const rooms = Number.parseInt(roomsInput.value, 10);
   const guests = Number.parseInt(guestsInput.value, 10);
 
@@ -83,7 +77,7 @@ const compareGuestsAndRooms = () => {
 
 const setFormValidation = () => {
   stayTypeInput.addEventListener('change', () => {
-    priceInput.placeholder = `${ roomTypeToMinPrice[stayTypeInput.value]}`;
+    priceInput.placeholder = roomTypeToMinPrice[stayTypeInput.value];
     priceInput.min = roomTypeToMinPrice[stayTypeInput.value];
   });
 
@@ -102,11 +96,11 @@ const setFormValidation = () => {
   checkOutTime.addEventListener('change', () => {
     checkInTime.value = checkOutTime.value;
   });
+  submitButton.addEventListener('click', () => {
+    compareGuestsAndRooms();
+    setFormValidation();
+  });
 };
 
 
-export {
-  setDisableForm,
-  setEnableForm,
-  setFormValidation
-};
+export { setDisableForm, setEnableForm, setFormValidation };

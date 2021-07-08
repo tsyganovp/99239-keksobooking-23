@@ -4,6 +4,7 @@ import { roomTypeToTitle } from './data.js';
 const mapCanvas = document.querySelector('#map-canvas');
 const offerTemplate = document.querySelector('#card').content;
 
+
 const renderCard = (card) => {
   const offerCard = offerTemplate.querySelector('.popup');
   const offerElement = offerCard.cloneNode(true);
@@ -17,7 +18,6 @@ const renderCard = (card) => {
   const templateDescription = offerElement.querySelector('.popup__description');
   const templatePhoto = offerElement.querySelector('.popup__photo');
   const templateAvatar = offerElement.querySelector('.popup__avatar');
-
   const offerTitle = card.offer.title;
   const offerAddress = card.offer.address;
   const offerPrice = card.offer.price;
@@ -76,20 +76,29 @@ const renderCard = (card) => {
     templateFeatures.remove();
   } else {
     templateFeatures.innerHTML = '';
-
     offerFeatures.forEach((item) => {
       const element = document.createElement('li');
       element.classList.add('popup__feature', `popup__feature--${item}`);
       const featuresTemplate = offerFeatures.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join('');
       templateFeatures.innerHTML = featuresTemplate;
     });
-
   }
 
   // TODO
-  // 1. Если нет фотографий и аватарки?
-  templatePhoto.src = offerPhotos;
-  templateAvatar.src = avatar;
+  // 1. Если нет фотографий и аватарки? ok
+  // eslint-disable-next-line no-console
+  //console.log(templatePhoto.src);
+  //templatePhoto.src = null;
+  if (!offerPhotos) {
+    templatePhoto.remove();
+  } else {
+    templatePhoto.src = offerPhotos;
+  }
+  if (!avatar) {
+    templateAvatar.remove();
+  } else {
+    templateAvatar.src = avatar;
+  }
   mapCanvas.append(offerElement);
 };
 
