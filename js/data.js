@@ -21,13 +21,21 @@ const LAT_MAXIMUM = 35.70000;
 const LNG_MINIMUM = 139.70000;
 const LNG_MAXIMUM = 139.80000;
 
-const roomType = new Map([
-  ['palace', 'Дворец'],
-  ['flat', 'Квартира'],
-  ['house', 'Дом'],
-  ['bungalow', 'Бунгало'],
-  ['hotel', 'Отель'],
-]);
+const roomTypeToTitle = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
+};
+
+const roomTypeToMinPrice = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+  hotel: 3000,
+};
 
 /**
 * Генерирует массив особенностей объекта проживания
@@ -42,11 +50,7 @@ const createFeatures = () => {
   }
 
   const temp = Array.from(new Set(featuresArray.map((item) => item.trim())));
-  const result = [];
-  for (let i = 0; i <= temp.length - 1; i++) {
-    result.push(` ${  temp[i]}`);
-  }
-  return result;
+  return temp;
 };
 
 /**
@@ -72,7 +76,7 @@ const createAuthor = () => ({
 /**
 * Генерирует координаты объекта проживания
 */
-const createLocation = () => ({//создание координат
+const createLocation = () => ({
   lat: getRandomFloat(LAT_MINIMUM, LAT_MAXIMUM, 4),
   lng: getRandomFloat(LNG_MINIMUM, LNG_MAXIMUM, 4),
 });
@@ -96,7 +100,7 @@ const createOffer = () => ({
 
 /**
 * Генерирует массив объявлений
-* @return {array[]}
+* @return {[]}
 */
 const createOffers = () => {
   const tray = [];
@@ -120,4 +124,4 @@ const createOffers = () => {
 };
 
 
-export { createAuthor, createLocation, createOffer, createOffers, roomType };
+export { createAuthor, createLocation, createOffer, createOffers, roomTypeToTitle, roomTypeToMinPrice };
