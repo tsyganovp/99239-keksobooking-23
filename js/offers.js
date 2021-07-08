@@ -17,10 +17,10 @@ const renderCard = (card) => {
   const templateDescription = offerElement.querySelector('.popup__description');
   const templatePhoto = offerElement.querySelector('.popup__photo');
   const templateAvatar = offerElement.querySelector('.popup__avatar');
-  
+
   const offerTitle = card.offer.title;
   const offerAddress = card.offer.address;
-  const offerPrice = card.offer.price; 
+  const offerPrice = card.offer.price;
   const offerType = card.offer.type;
   const offerRooms = card.offer.rooms;
   const offerGuests = card.offer.guests;

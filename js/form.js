@@ -64,11 +64,22 @@ const setEnableForm = () => {
 // 8. удалить, потому что валидация опредеяется через атрибут min, который меняется при изменении типа дилья в алгоритме ок
 
 const compareGuestsAndRooms = () => {
-  if(roomsInput.value >= guestsInput.value || roomsInput.value === 100 && roomsInput.value === 0) {
-    roomsInput.setCustomValidity('');
+
+  const rooms = Number.parseInt(roomsInput.value, 10);
+  const guests = Number.parseInt(guestsInput.value, 10);
+
+  if(rooms >= guests) {
+    if(rooms === 100 && guests !== 0) {
+      roomsInput.setCustomValidity('Количество комнат не соответвует количеству гостей');
+    } else {
+      roomsInput.setCustomValidity('');
+    }
   } else {
-    roomsInput.setCustomValidity('Число комнат не соответсвует числу гостей');}
+    roomsInput.setCustomValidity('Количество комнат не соответвует количеству гостей');
+  }
+  roomsInput.reportValidity();
 };
+
 
 const setFormValidation = () => {
   stayTypeInput.addEventListener('change', () => {
