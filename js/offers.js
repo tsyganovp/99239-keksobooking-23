@@ -101,6 +101,5 @@ const renderCard = (card) => {
   mapCanvas.append(offerElement);
 };
 
-
 export { renderCard };
 */
