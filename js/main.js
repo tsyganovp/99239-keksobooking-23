@@ -16,5 +16,4 @@ import { getData } from './network.js';
 getData();
 setDisableForm();
 drawMap();
-//drawPoints(offers);
 setFormValidation();
