@@ -19,6 +19,7 @@ const getRandomFloat = (min, max, numbersAfter) => {
   }
   return (Math.random() * (max - min) + min).toFixed(numbersAfter);
 };
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 
-export { getRandomIntInclusive, getRandomFloat };
+export { getRandomIntInclusive, getRandomFloat,isEscEvent };

@@ -8,7 +8,6 @@ import {
 } from './form.js';
 import { drawMap, drawPoints } from './map.js';
 import { getData } from './network.js';
-import{showSuccsess} from './form-messages.js';
 
 
 //const offers = getData();
