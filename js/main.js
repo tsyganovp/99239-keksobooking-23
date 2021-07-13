@@ -12,9 +12,9 @@ import { getData } from './network.js';
 
 //const offers = getData();
 // eslint-disable-next-line no-console
-console.log(offers);
-
+//console.log(offers);
+getData();
 setDisableForm();
 drawMap();
-drawPoints(offers);
+//drawPoints(offers);
 setFormValidation();

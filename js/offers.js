@@ -1,8 +1,10 @@
-//import { roomTypeToTitle } from './data.js';
-
 /*
+import { roomTypeToTitle } from './data.js';
+
+
 const mapCanvas = document.querySelector('#map-canvas');
 const offerTemplate = document.querySelector('#card').content;
+
 
 const renderCard = (card) => {
   const offerCard = offerTemplate.querySelector('.popup');
@@ -100,6 +102,7 @@ const renderCard = (card) => {
   }
   mapCanvas.append(offerElement);
 };
+
 
 export { renderCard };
 */
