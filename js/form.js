@@ -94,7 +94,6 @@ const setFormValidation = () => {
   stayTypeInput.addEventListener('change', () => {
     priceInput.placeholder = roomTypeToMinPrice[stayTypeInput.value];
     priceInput.min = roomTypeToMinPrice[stayTypeInput.value];
-    formContent = new FormData(form);
   });
 
   roomsInput.addEventListener('change', () => {
@@ -117,7 +116,7 @@ submitButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   compareGuestsAndRooms();
   setFormValidation();
-  sendData();
+  sendData(evt.target);
 });
 resetButton.addEventListener('click', () => {
   setInintialForm();
