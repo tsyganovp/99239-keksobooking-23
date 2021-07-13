@@ -7,10 +7,13 @@ import {
   setFormValidation
 } from './form.js';
 import { drawMap, drawPoints } from './map.js';
+import { getData } from './network.js';
 
-const offers = createOffers();
+
+//const offers = getData();
 // eslint-disable-next-line no-console
 console.log(offers);
+
 setDisableForm();
 drawMap();
 drawPoints(offers);

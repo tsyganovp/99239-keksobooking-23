@@ -142,6 +142,7 @@ const drawMap = () => {
 
 const drawPoints = (data) => {
   data.forEach((element) => {
+    console.log(element);
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [52, 52],
