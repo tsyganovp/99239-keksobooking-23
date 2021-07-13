@@ -113,8 +113,8 @@ const setFormValidation = () => {
     checkInTime.value = checkOutTime.value;
   });
 };
-submitButton.addEventListener('click', () => {
-  //evt.preventDefault();
+submitButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
   compareGuestsAndRooms();
   setFormValidation();
   sendData();

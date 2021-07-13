@@ -28,15 +28,16 @@ const getData = () => {
 };
 
 const sendData = () => {
-  try {
-    fetch(URL_API, {
-      method: 'POST',
-      body: formContent,
-    });
-    showSuccsess();
-  } catch (error) {
-    showError();
-  }
+  fetch(URL_API, {
+    method: 'POST',
+    body: formContent,
+  }).then((response) => {
+    if(response.ok) {
+      showSuccsess();
+    } else {
+      showError();
+    }
+  });
 };
 
 export {
