@@ -1,5 +1,6 @@
 import { roomTypeToMinPrice } from './data.js';
-
+import { adderessInput } from './map.js';
+import { sendData } from './network.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
@@ -13,6 +14,10 @@ const guestsInput = document.getElementById('capacity');
 const checkInTime = document.getElementById('timein');
 const checkOutTime = document.getElementById('timeout');
 const submitButton = document.querySelector('.ad-form__submit');
+const resetButton = document.querySelector('.ad-form__reset');
+const featureLabels = document.querySelectorAll('.features__label');
+
+let formContent;
 
 const setDisableForm = () => {
   form.classList.add('ad-form--disabled');
@@ -48,6 +53,16 @@ const setEnableForm = () => {
   });
 };
 
+const setInintialForm = () => {
+  //offerTitle.value = '';
+  adderessInput.value =  '35.68950,139.69171'; //не работает
+  checkInTime.value = '12:00';
+  checkOutTime.value = '12:00';
+  roomsInput.firstChild.selected(true);
+  guestsInput.firstChild.selected(true);
+  featureLabels.find('active').remove();
+};
+
 // TODO
 // 1. Убрать maxValue ок
 // 2. inputType, minimalPrce, rooms, guests убрать ок
@@ -79,6 +94,7 @@ const setFormValidation = () => {
   stayTypeInput.addEventListener('change', () => {
     priceInput.placeholder = roomTypeToMinPrice[stayTypeInput.value];
     priceInput.min = roomTypeToMinPrice[stayTypeInput.value];
+    formContent = new FormData(form);
   });
 
   roomsInput.addEventListener('change', () => {
@@ -96,11 +112,15 @@ const setFormValidation = () => {
   checkOutTime.addEventListener('change', () => {
     checkInTime.value = checkOutTime.value;
   });
-  submitButton.addEventListener('click', () => {
-    compareGuestsAndRooms();
-    setFormValidation();
-  });
 };
+submitButton.addEventListener('click', () => {
+  //evt.preventDefault();
+  compareGuestsAndRooms();
+  setFormValidation();
+  sendData();
+});
+resetButton.addEventListener('click', () => {
+  setInintialForm();
+});
 
-
-export { setDisableForm, setEnableForm, setFormValidation };
+export { setDisableForm, setEnableForm, setFormValidation, formContent};

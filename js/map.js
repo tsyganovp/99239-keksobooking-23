@@ -2,8 +2,8 @@ import { setEnableForm } from './form.js';
 import { roomTypeToTitle } from './data.js';
 
 
-const addersInput = document.getElementById('address');
-addersInput.value = '35.68950,139.69171';
+const adderessInput = document.getElementById('address');
+adderessInput.value = '35.68950,139.69171';
 const map = L.map('map-canvas');
 
 const createCustomPopup = (card) => {
@@ -135,14 +135,13 @@ const drawMap = () => {
   mainPinMarker.on('moveend', (evt) => {
     const coordinates = evt.target.getLatLng();
     // eslint-disable-next-line no-console
-    addersInput.value = `${(coordinates.lat).toFixed(5)},${(coordinates.lng).toFixed(5)}`;
+    adderessInput.value = `${(coordinates.lat).toFixed(5)},${(coordinates.lng).toFixed(5)}`;
   });
 };
 
 
 const drawPoints = (data) => {
   data.forEach((element) => {
-    console.log(element);
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [52, 52],
@@ -165,4 +164,4 @@ const drawPoints = (data) => {
 };
 
 
-export { drawMap, drawPoints };
+export { drawMap, drawPoints, adderessInput };
