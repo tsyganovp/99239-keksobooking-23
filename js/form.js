@@ -54,10 +54,7 @@ const setEnableForm = () => {
 };
 
 const setInintialForm = () => {
-  //offerTitle.value = '';
   adderessInput.value =  '35.68950,139.69171'; //не работает
-  checkInTime.value = '12:00';
-  checkOutTime.value = '12:00';
   roomsInput.firstChild.selected(true);
   guestsInput.firstChild.selected(true);
   featureLabels.find('active').remove();
