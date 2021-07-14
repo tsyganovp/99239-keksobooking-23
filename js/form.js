@@ -53,12 +53,6 @@ const setEnableForm = () => {
   });
 };
 
-const setInintialForm = () => {
-  adderessInput.value =  '35.68950,139.69171'; //не работает
-  roomsInput.firstChild.selected(true);
-  guestsInput.firstChild.selected(true);
-  featureLabels.find('active').remove();
-};
 
 // TODO
 // 1. Убрать maxValue ок
@@ -115,8 +109,6 @@ submitButton.addEventListener('click', (evt) => {
   setFormValidation();
   sendData(evt.target);
 });
-resetButton.addEventListener('click', () => {
-  setInintialForm();
-});
+
 
 export { setDisableForm, setEnableForm, setFormValidation, formContent};
