@@ -8,8 +8,10 @@ import {
   showSuccsess,
   showError
 } from './form-messages.js';
+import { filterOffer } from './filter.js';
 
 
+let jsonResult = null;
 const URL_API = 'https://23.javascript.pages.academy/keksobooking';
 
 const getData = () => {
@@ -23,7 +25,10 @@ const getData = () => {
     })
     .then((response) => response.json())
     .then((data) => {
+      jsonResult = data;
+      console.log(jsonResult);
       drawPoints(data);
+      filterOffer(data);
     });
 };
 
@@ -42,5 +47,6 @@ const sendData = () => {
 
 export {
   getData,
-  sendData
+  sendData,
+  jsonResult
 };
