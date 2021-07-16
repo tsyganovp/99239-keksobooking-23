@@ -141,6 +141,27 @@ const drawMap = () => {
 
 
 const drawPoints = (data) => {
+  for(let i = 0; i <= 9; i++) {
+    const mainPinIcon = L.icon({
+      iconUrl: '/img/pin.svg',
+      iconSize: [52, 52],
+      iconAnchor: [26, 52],
+    });
+
+    const mainPinMarker = L.marker({
+      lat: data[i].location.lat,
+      lng: data[i].location.lng,
+    }, {
+      draggable: false,
+      icon: mainPinIcon,
+    });
+
+    mainPinMarker.addTo(map)
+      .bindPopup(
+        createCustomPopup(data[i]),
+      );
+  }
+  /*
   data.forEach((element) => {
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
@@ -161,6 +182,7 @@ const drawPoints = (data) => {
         createCustomPopup(element),
       );
   });
+*/
 };
 
 
