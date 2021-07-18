@@ -99,7 +99,7 @@ const createCustomPopup = (card) => {
   }
   return offerElement;
 };
-
+const markerGroup = L.layerGroup().addTo(map);
 
 const drawMap = () => {
   map
@@ -130,7 +130,7 @@ const drawMap = () => {
     icon: mainPinIcon,
   });
 
-  mainPinMarker.addTo(map);
+  mainPinMarker.addTo(markerGroup);
   mainPinMarker.on('moveend', (evt) => {
     const coordinates = evt.target.getLatLng();
     // eslint-disable-next-line no-console
@@ -138,9 +138,13 @@ const drawMap = () => {
   });
 };
 
+const clearMap = () => {
+  markerGroup.clearLayers();
+};
 
 const drawPoints = (data) => {
-  for(let i = 0; i <= 9; i++) {
+  console.log(Object.keys(data).length);
+  for(let i = 0; i < Object.keys(data).length; i++) {
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [40, 40],
@@ -155,7 +159,7 @@ const drawPoints = (data) => {
       icon: mainPinIcon,
     });
 
-    mainPinMarker.addTo(map)
+    mainPinMarker.addTo(markerGroup)
       .bindPopup(
         createCustomPopup(data[i]),
       );
@@ -185,4 +189,4 @@ const drawPoints = (data) => {
 };
 
 
-export { drawMap, drawPoints, adderessInput };
+export { drawMap, drawPoints, clearMap, adderessInput };

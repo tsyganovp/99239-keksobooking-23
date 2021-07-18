@@ -24,7 +24,7 @@ const guestsAmountFilter = mapFilter.querySelector('#housing-guests');
 const featuresFilter = mapFilter.querySelector('#housing-features');
 
 import { jsonResult } from "./api.js";
-import { drawPoints } from "./map.js";
+import { drawPoints, clearMap } from "./map.js";
 // TODO Фильтрация
 // 1. Фильтрация должна происходить с помощью цикла for для реализации своевременного выхода из массива
 // https://up.htmlacademy.ru/javascript/23/criteries#b23
@@ -76,7 +76,8 @@ const filterOffers = (offers) => {
 };
 mapFilter.addEventListener('change', (evt) => {
   evt.preventDefault();
-  //drawPoints(filterOffers(jsonResult));
+  clearMap();
+  drawPoints(filterOffers(jsonResult));
 })
 
 export { filterOffers };
