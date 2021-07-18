@@ -12,7 +12,7 @@ import { filterOffer } from './filter.js';
 
 
 let jsonResult = null;
-const URL_API = 'https://23.javascript.pages.academy/keksobooking';
+const URL_API = ' https://23.javascript.pages.academy/keksobooking';
 
 const getData = () => {
   fetch(`${URL_API}/data`)
@@ -32,11 +32,12 @@ const getData = () => {
     });
 };
 
-const sendData = () => {
+const sendData = (formContent) => {
   fetch(URL_API, {
     method: 'POST',
     body: formContent,
   }).then((response) => {
+
     if(response.ok) {
       showSuccsess();
     } else {

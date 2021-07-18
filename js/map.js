@@ -97,7 +97,6 @@ const createCustomPopup = (card) => {
   } else {
     templateAvatar.src = avatar;
   }
-  mapCanvas.append(offerElement);
   return offerElement;
 };
 

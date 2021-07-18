@@ -1,6 +1,3 @@
-import {
-  isEscEvent
-} from './util.js';
 
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -10,19 +7,36 @@ const messageError = errorMessageTemplate.cloneNode(true);
 const body = document.querySelector('body');
 const errorButton = errorMessageTemplate.querySelector('.error__button');
 
-const closeSuccessMessage = (evt) => {
-  if (isEscEvent) {
-    evt.preventDefault();
-    body.remove(messageSuccess);
-  }
-};
+console.log(messageSuccess);
+
 
 const showSuccsess = () => {
   body.appendChild(messageSuccess);
-  closeSuccessMessage();
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === "Escape") {
+      console.log("!!!")
+      body.removeChild(messageSuccess);
+    }
+  })
+  document.addEventListener('click', (evt) => {
+    body.removeChild(messageSuccess);
+  })
 };
 const showError = () => {
   body.appendChild(messageError);
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === "Escape") {
+      console.log("!!!")
+      body.removeChild(messageError);
+    }
+  })
+  document.addEventListener('click', (evt) => {
+    body.removeChild(messageError);
+  })
+  errorButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    body.removeChild(messageError);
+  })
 };
 
 

@@ -1,6 +1,6 @@
 import { roomTypeToMinPrice } from './data.js';
 import { adderessInput } from './map.js';
-import { sendData } from './network.js';
+import { sendData } from './api.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
@@ -103,11 +103,13 @@ const setFormValidation = () => {
     checkInTime.value = checkOutTime.value;
   });
 };
-submitButton.addEventListener('click', (evt) => {
+
+form.addEventListener('submit', (evt) => { 
   evt.preventDefault();
   compareGuestsAndRooms();
   setFormValidation();
-  sendData(evt.target);
+  formContent = new FormData(form);
+  sendData(formContent);
 });
 
 
