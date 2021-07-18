@@ -1,14 +1,11 @@
 import {
   drawPoints
 } from './map.js';
-import {
-  formContent
-} from './form.js';
+
 import {
   showSuccsess,
   showError
 } from './form-messages.js';
-import { filterOffers } from './filter.js';
 
 
 let jsonResult = null;

@@ -1,5 +1,4 @@
 import { roomTypeToMinPrice } from './data.js';
-import { adderessInput } from './map.js';
 import { sendData } from './api.js';
 
 const form = document.querySelector('.ad-form');
@@ -13,9 +12,6 @@ const roomsInput = document.getElementById('room_number');
 const guestsInput = document.getElementById('capacity');
 const checkInTime = document.getElementById('timein');
 const checkOutTime = document.getElementById('timeout');
-const submitButton = document.querySelector('.ad-form__submit');
-const resetButton = document.querySelector('.ad-form__reset');
-const featureLabels = document.querySelectorAll('.features__label');
 
 let formContent;
 
@@ -104,7 +100,7 @@ const setFormValidation = () => {
   });
 };
 
-form.addEventListener('submit', (evt) => { 
+form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   compareGuestsAndRooms();
   setFormValidation();

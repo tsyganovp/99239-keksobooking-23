@@ -1,5 +1,4 @@
 const MAX_PRICE = 1000000;
-const RENDERED_OFFERS_AMOUNT = 10;
 const FILTER_VALUE_ANY = 'any';
 const priceRanges = {
   low: {
