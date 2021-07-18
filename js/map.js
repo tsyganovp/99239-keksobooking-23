@@ -1,5 +1,7 @@
 import { setEnableForm } from './form.js';
 import { roomTypeToTitle } from './data.js';
+import { filterOffers, mapFilter } from './filter.js';
+import { jsonResult } from "./api.js";
 
 
 const adderessInput = document.getElementById('address');
@@ -113,8 +115,8 @@ const drawMap = () => {
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
   ).addTo(map);
   const mainPinIcon = L.icon({
     iconUrl: '/img/main-pin.svg',
@@ -144,7 +146,7 @@ const clearMap = () => {
 
 const drawPoints = (data) => {
   console.log(Object.keys(data).length);
-  for(let i = 0; i < Object.keys(data).length; i++) {
+  for (let i = 0; i < Object.keys(data).length; i++) {
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [40, 40],
@@ -164,29 +166,16 @@ const drawPoints = (data) => {
         createCustomPopup(data[i]),
       );
   }
-  /*
-  data.forEach((element) => {
-    const mainPinIcon = L.icon({
-      iconUrl: '/img/pin.svg',
-      iconSize: [52, 52],
-      iconAnchor: [26, 52],
-    });
 
-    const mainPinMarker = L.marker({
-      lat: element.location.lat,
-      lng: element.location.lng,
-    }, {
-      draggable: false,
-      icon: mainPinIcon,
-    });
-
-    mainPinMarker.addTo(map)
-      .bindPopup(
-        createCustomPopup(element),
-      );
-  });
-*/
 };
 
+const filterOnChangeButton = () => {
+  mapFilter.addEventListener('change', (evt) => {
+    evt.preventDefault();
+    clearMap();
+    drawPoints(filterOffers(jsonResult));
+  })
+}
 
-export { drawMap, drawPoints, clearMap, adderessInput };
+
+export { drawMap, drawPoints, clearMap, filterOnChangeButton, adderessInput };

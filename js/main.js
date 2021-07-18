@@ -6,7 +6,7 @@ import {
     setDisableForm,
     setFormValidation
 } from './form.js';
-import { drawMap, drawPoints } from './map.js';
+import { drawMap, filterOnChangeButton } from './map.js';
 import { getData } from './api.js';
 import {filterOffers} from './filter.js'
 
@@ -19,6 +19,7 @@ let offers = [];
 getData();
 setDisableForm();
 drawMap();
+filterOnChangeButton();
 setFormValidation();
 
 //showSuccsess();

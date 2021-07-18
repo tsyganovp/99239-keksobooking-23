@@ -27,7 +27,7 @@ const getData = () => {
     .then((data) => {
       jsonResult = data;
       //console.log(jsonResult);
-      drawPoints(data);
+      //drawPoints(data);
       //filterOffers(data);
     });
 };

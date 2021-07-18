@@ -23,15 +23,13 @@ const roomsAmountFilter = mapFilter.querySelector('#housing-rooms');
 const guestsAmountFilter = mapFilter.querySelector('#housing-guests');
 const featuresFilter = mapFilter.querySelector('#housing-features');
 
-import { jsonResult } from "./api.js";
-import { drawPoints, clearMap } from "./map.js";
+
 // TODO Фильтрация
 // 1. Фильтрация должна происходить с помощью цикла for для реализации своевременного выхода из массива
 // https://up.htmlacademy.ru/javascript/23/criteries#b23
 // https://up.htmlacademy.ru/javascript/23/project/keksobooking#keksobooking-5-9
 //
 //
-
 const isPriceInRange = (price, range) => {
   if (range === FILTER_VALUE_ANY) {
     return true;
@@ -65,7 +63,7 @@ const isOfferMatchesFilter = (offer) => {
 
 const filterOffers = (offers) => {
   const filteredOffers = [];
-  for (let i = 0; i < offers.length; i++) {
+  for (let i = 0; i < 10; i++) {
     const {offer} = offers[i];
     if (isOfferMatchesFilter(offer)) {
       filteredOffers.push(offers[i]);
@@ -74,13 +72,9 @@ const filterOffers = (offers) => {
   //console.log(filteredOffers)
   return filteredOffers;
 };
-mapFilter.addEventListener('change', (evt) => {
-  evt.preventDefault();
-  clearMap();
-  drawPoints(filterOffers(jsonResult));
-})
 
-export { filterOffers };
+
+export { filterOffers, mapFilter };
 //arr.filter()
 
 
