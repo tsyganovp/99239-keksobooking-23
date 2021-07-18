@@ -1,48 +1,85 @@
-const LOW_PRICE = 10000;
-const HIGH_PRICE = 50000;
-const DEFAULT_VALUE = 'any';
+const MAX_PRICE = 1000000;
+const RENDERED_OFFERS_AMOUNT = 10;
+const FILTER_VALUE_ANY = 'any';
+const priceRanges = {
+  low: {
+    MIN: 0,
+    MAX: 9999,
+  },
+  middle: {
+    MIN: 10000,
+    MAX: 49999,
+  },
+  high: {
+    MIN: 50000,
+    MAX: MAX_PRICE,
+  },
+};
 
-const filters = document.querySelector('.map__filters');
-const housingType = document.getElementById('housing-type').value;
-const housingPrice = document.getElementById('housing-price').value;
-const housingRooms = document.getElementById('housing-rooms').value;
-const housingGuests = document.getElementById('housing-guests').value;
-const mapFeatures = document.querySelector('.map__features');
-const housingFeatures = [...mapFeatures.querySelectorAll('input[type=checkbox]')];
+const mapFilter = document.querySelector('.map__filters');
+const housingTypeFilter = mapFilter.querySelector('#housing-type');
+const priceFilter = mapFilter.querySelector('#housing-price');
+const roomsAmountFilter = mapFilter.querySelector('#housing-rooms');
+const guestsAmountFilter = mapFilter.querySelector('#housing-guests');
+const featuresFilter = mapFilter.querySelector('#housing-features');
 
+import { jsonResult } from "./api.js";
+import { drawPoints } from "./map.js";
 // TODO Фильтрация
 // 1. Фильтрация должна происходить с помощью цикла for для реализации своевременного выхода из массива
 // https://up.htmlacademy.ru/javascript/23/criteries#b23
 // https://up.htmlacademy.ru/javascript/23/project/keksobooking#keksobooking-5-9
 //
 //
-const filterOffer = (data) => {
-  let filteredData =[];
 
-  
+const isPriceInRange = (price, range) => {
+  if (range === FILTER_VALUE_ANY) {
+    return true;
+  }
 
-  data.forEach((element) => { 
-
-    if(element.offer.type === 'house') {
-      filteredData.push(element);
-    }
-    if((element.offer.rooms).toString() === '3') {
-      filteredData.push(element);
-    }
-    if((element.offer.guests).toString() === '2') {
-      filteredData.push(element);
-    }
-
-    const priceMath = () => {
-
-    };
-
-  });
-
-  console.log(filteredData);
+  return price > priceRanges[range].MIN && price < priceRanges[range].MAX;
 };
 
-export {filterOffer};
+const isValueMatchesFilter = (property, filter) => {
+  let filterValue = filter.value;
+  if (filterValue !== FILTER_VALUE_ANY && filter !== housingTypeFilter) {
+    filterValue = Number(filter.value);
+  }
+
+  return filterValue === FILTER_VALUE_ANY || property === filterValue;
+};
+
+const areFeaturesMatchFilter = (features = []) => {
+  const filteredFeatures = featuresFilter.querySelectorAll('input[type="checkbox"]:checked');
+  return [...filteredFeatures].every((feature) => features.includes(feature.value));
+};
+
+const isOfferMatchesFilter = (offer) => {
+  const { type, price, rooms, guests, features } = offer;
+  return isValueMatchesFilter(type, housingTypeFilter) &&
+    isPriceInRange(price, priceFilter.value) &&
+    isValueMatchesFilter(rooms, roomsAmountFilter) &&
+    isValueMatchesFilter(guests, guestsAmountFilter) &&
+    areFeaturesMatchFilter(features);
+};
+
+const filterOffers = (offers) => {
+  const filteredOffers = [];
+  for (let i = 0; i < offers.length; i++) {
+    const {offer} = offers[i];
+    if (isOfferMatchesFilter(offer)) {
+      filteredOffers.push(offers[i]);
+    }
+  }
+  //console.log(filteredOffers)
+  return filteredOffers;
+};
+mapFilter.addEventListener('change', (evt) => {
+  evt.preventDefault();
+  //drawPoints(filterOffers(jsonResult));
+})
+
+export { filterOffers };
 //arr.filter()
 
 

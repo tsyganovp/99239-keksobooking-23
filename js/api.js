@@ -8,7 +8,7 @@ import {
   showSuccsess,
   showError
 } from './form-messages.js';
-import { filterOffer } from './filter.js';
+import { filterOffers } from './filter.js';
 
 
 let jsonResult = null;
@@ -26,9 +26,9 @@ const getData = () => {
     .then((response) => response.json())
     .then((data) => {
       jsonResult = data;
-      console.log(jsonResult);
+      //console.log(jsonResult);
       drawPoints(data);
-      filterOffer(data);
+      //filterOffers(data);
     });
 };
 
