@@ -144,7 +144,7 @@ const drawMap = (onReady) => {
 
 const clearMap = () => {
   markerGroup.clearLayers();
-  // Заменить
+  // Заменить на удаление только маркеров объявлений
 };
 
 
