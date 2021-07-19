@@ -1,5 +1,6 @@
 const MAX_PRICE = 1000000;
 const FILTER_VALUE_ANY = 'any';
+
 const priceRanges = {
   low: {
     MIN: 0,
@@ -16,6 +17,7 @@ const priceRanges = {
 };
 
 const mapFilter = document.querySelector('.map__filters');
+const formSelects = mapFilter.querySelectorAll('select');
 const housingTypeFilter = mapFilter.querySelector('#housing-type');
 const priceFilter = mapFilter.querySelector('#housing-price');
 const roomsAmountFilter = mapFilter.querySelector('#housing-rooms');
@@ -62,31 +64,40 @@ const isOfferMatchesFilter = (offer) => {
 
 const filterOffers = (offers) => {
   const filteredOffers = [];
-  for (let i = 0; i < 10; i++) {
+  
+  for (let i = 0; i < offers.length; i++) {
     const {offer} = offers[i];
     if (isOfferMatchesFilter(offer)) {
       filteredOffers.push(offers[i]);
     }
+
+    if (filteredOffers.length >= 10) {
+      break;
+    }
   }
-  //console.log(filteredOffers)
+
   return filteredOffers;
 };
 
+const disableFilterForm = () => {
+  mapFilter.classList.add('map__filters--disabled');
+  formSelects.forEach((item) => {
+    item.disabled = true;
+  });
+};
 
-export { filterOffers, mapFilter };
-//arr.filter()
+const enableFilterForm = () => {
+  mapFilter.classList.remove('map__filters--disabled');
+  formSelects.forEach((item) => {
+    item.disabled = false;
+  });
+}
+
+// Новая функция
+// Создает обработчик для фильтрации
+const initFilterForm = () => {
+
+};
 
 
-// const test = [1, 2, 3 , 4, -2, -5, 1];
-// const test2 = test.filter((number) => {
-//   if (number >= 0) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-
-//   return number >= 0;
-// });
-
-
-// const test2 = test.filter(number => number >= 0);
+export { filterOffers, disableFilterForm, enableFilterForm, mapFilter };

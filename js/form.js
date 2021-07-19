@@ -3,9 +3,7 @@ import { sendData } from './api.js';
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
-const formFilter = document.querySelector('.map__filters');
-const formSelects = formFilter.querySelectorAll('select');
-const formFields = formFilter.querySelectorAll('fieldset');
+const addressInput = document.querySelector('#address');
 const priceInput = document.getElementById('price');
 const stayTypeInput = document.getElementById('type');
 const roomsInput = document.getElementById('room_number');
@@ -15,37 +13,21 @@ const checkOutTime = document.getElementById('timeout');
 
 let formContent;
 
-const setDisableForm = () => {
+/**
+ * Блокирует форму ввода объявления
+ */
+const disableForm = () => {
   form.classList.add('ad-form--disabled');
   formFieldsets.forEach((formField) => {
     formField.disabled = true;
   });
-
-  formFilter.classList.add('map__filters--disabled');
-  formSelects.forEach((item) => {
-    item.disabled = true;
-  });
-
-  formFields.forEach((item) => {
-    item.disabled = true;
-  });
 };
 
 
-const setEnableForm = () => {
+const enableForm = () => {
   form.classList.remove('ad-form--disabled');
   formFieldsets.forEach((formField) => {
     formField.disabled = false;
-  });
-
-  formFilter.classList.remove('map__filters--disabled');
-  formSelects.forEach((item) => {
-    item.disabled = false;
-  });
-
-
-  formFields.forEach((item) => {
-    item.disabled = false;
   });
 };
 
@@ -108,5 +90,9 @@ form.addEventListener('submit', (evt) => {
   sendData(formContent);
 });
 
+const setAddress = (lat, lng) => {
+  addressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+};
 
-export { setDisableForm, setEnableForm, setFormValidation, formContent};
+
+export { disableForm, enableForm, setFormValidation, formContent, setAddress};

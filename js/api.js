@@ -8,24 +8,25 @@ import {
 } from './form-messages.js';
 
 
-let jsonResult = null;
 const URL_API = ' https://23.javascript.pages.academy/keksobooking';
 
-const getData = () => {
+const getOffers = (onSuccess, onError) => {
   fetch(`${URL_API}/data`)
     .then((response) => {
       if (response.ok) {
         return response;
       }
-
+      
       throw new Error('Ошибка при получении данных');
     })
     .then((response) => response.json())
     .then((data) => {
-      jsonResult = data;
-      //console.log(jsonResult);
-      drawPoints(data.slice(0,10));
+      onSuccess(data);
+      //drawPoints(data);
       //filterOffers(data);
+    })
+    .catch((error) => {
+      onError(error.message);
     });
 };
 
@@ -43,8 +44,4 @@ const sendData = (formContent) => {
   });
 };
 
-export {
-  getData,
-  sendData,
-  jsonResult
-};
+export {getOffers, sendData};

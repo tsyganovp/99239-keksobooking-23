@@ -1,11 +1,13 @@
-import { setEnableForm } from './form.js';
 import { roomTypeToTitle } from './data.js';
 import { filterOffers, mapFilter } from './filter.js';
-import { jsonResult } from './api.js';
+import { setAddress } from './form.js';
 
 
-const adderessInput = document.getElementById('address');
-adderessInput.value = '35.68950,139.69171';
+const INITIAL_ADDRESS = {
+  lat: 35.68950,
+  lng: 139.69171,
+};
+
 const map = L.map('map-canvas');
 
 const createCustomPopup = (card) => {
@@ -101,17 +103,17 @@ const createCustomPopup = (card) => {
   }
   return offerElement;
 };
+
 const markerGroup = L.layerGroup().addTo(map);
 
-const drawMap = () => {
-  map
-    .on('load', () => {
-      setEnableForm();
-    })
-    .setView({
-      lat: 35.6895000,
-      lng: 139.6917100,
-    }, 10);
+/**
+ * Инициализация карты
+ */
+const drawMap = (onReady) => {
+  map.on('load', onReady).setView({
+    lat: INITIAL_ADDRESS.lat,
+    lng: INITIAL_ADDRESS.lng,
+  }, 13);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -125,27 +127,29 @@ const drawMap = () => {
   });
 
   const mainPinMarker = L.marker({
-    lat: 35.6895000,
-    lng: 139.6917100,
+    lat: INITIAL_ADDRESS.lat,
+    lng: INITIAL_ADDRESS.lng,
   }, {
     draggable: true,
     icon: mainPinIcon,
   });
 
-  mainPinMarker.addTo(markerGroup);
+  mainPinMarker.addTo(map);
   mainPinMarker.on('moveend', (evt) => {
     const coordinates = evt.target.getLatLng();
-    // eslint-disable-next-line no-console
-    adderessInput.value = `${(coordinates.lat).toFixed(5)},${(coordinates.lng).toFixed(5)}`;
+    setAddress(coordinates.lat, coordinates.lng);
   });
 };
 
+
 const clearMap = () => {
   markerGroup.clearLayers();
+  // Заменить
 };
 
+
 const drawPoints = (data) => {
-  for (let i = 0; i < Object.keys(data).length; i++) {
+  for (let i = 0; i < data.length; i++) {
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [40, 40],
@@ -165,16 +169,22 @@ const drawPoints = (data) => {
         createCustomPopup(data[i]),
       );
   }
-
 };
 
+
+// Перенести в filter, в initFilterForm
 const filterOnChangeButton = () => {
-  mapFilter.addEventListener('change', (evt) => {
-    evt.preventDefault();
+  mapFilter.addEventListener('change', () => {
     clearMap();
+    // const filteredOffers;
     drawPoints(filterOffers(jsonResult));
   });
 };
 
 
-export { drawMap, drawPoints, clearMap, filterOnChangeButton, adderessInput };
+const setInitialAddress = () => {
+  setAddress(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
+}
+
+
+export { drawMap, drawPoints, clearMap, filterOnChangeButton, setInitialAddress };
