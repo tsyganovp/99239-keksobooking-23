@@ -2,6 +2,7 @@ import { roomTypeToMinPrice } from './data.js';
 import { sendData } from './api.js';
 import { setInitialAddress } from './map.js';
 import { debounce } from './util.js';
+import { showError, showSuccsess } from './form-messages.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -81,7 +82,7 @@ const initForm = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const formContent = new FormData(form);
-    sendData(formContent, () => {}, () => {});
+    sendData(formContent, showSuccsess,showError);
   });
 
   resetButton.addEventListener('click', (evt) => {

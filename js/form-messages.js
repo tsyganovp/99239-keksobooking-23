@@ -1,23 +1,27 @@
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-
-const messageSuccess = successMessageTemplate.cloneNode(true);
-
-
-
-const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-
-
 const showSuccsess = () => {
-  body.appendChild(messageSuccess);
-  document.addEventListener('keydown', (evt) => {
+  const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+  const messageSuccess = successMessageTemplate.cloneNode(true);
+  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+
+  const onKeyDown = (evt) => {
     if (evt.key === 'Escape') {
-      body.removeChild(messageSuccess);
+      closeMessage();
     }
+  }
+
+  const closeMessage = () => {
+    document.removeEventListener('keydown', onKeyDown);
+    messageSuccess.remove();
+  }
+
+  document.addEventListener('keydown', onKeyDown);
+
+  messageSuccess.addEventListener('click', () => {
+    closeMessage();
   });
-  document.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    body.removeChild(messageSuccess);
-  });
+
+  document.body.appendChild(messageSuccess);
+
 };
 
 const showError = (errorMessage) => {

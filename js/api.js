@@ -1,4 +1,4 @@
-const URL_API = ' https://23.javascript.pages.academy/keksobooking123';
+const URL_API = ' https://23.javascript.pages.academy/keksobooking';
 
 const getOffers = (onSuccess, onError) => {
   fetch(`${URL_API}/data`)

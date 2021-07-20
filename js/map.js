@@ -50,7 +50,7 @@ const createCustomPopup = (card) => {
   const offerDescription = card.offer.description;
   const offerPhotos = card.offer.photos;
   const avatar = card.author.avatar;
-  
+
   if (!offerTitle) {
     templateTitle.remove();
   } else {
@@ -124,8 +124,8 @@ const markerGroup = L.layerGroup().addTo(map);
  */
 const drawMap = (onReady) => {
   map.on('load', onReady).setView({
-    lat: INITIAL_ADDRESS.lat,
-    lng: INITIAL_ADDRESS.lng,
+    lat: 35.67510,
+    lng: 139.72200,
   }, 13);
 
   L.tileLayer(
