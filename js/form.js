@@ -14,7 +14,7 @@ const guestsInput = document.getElementById('capacity');
 const checkInTime = document.getElementById('timein');
 const checkOutTime = document.getElementById('timeout');
 const resetButton = document.querySelector('.ad-form__reset');
-let formContent;
+
 /**
  * Блокирует форму ввода объявления
  */
@@ -38,8 +38,8 @@ const compareGuestsAndRooms = () => {
   const rooms = Number.parseInt(roomsInput.value, 10);
   const guests = Number.parseInt(guestsInput.value, 10);
 
-  if(rooms >= guests) {
-    if(rooms === 100 && guests !== 0) {
+  if (rooms >= guests) {
+    if (rooms === 100 && guests !== 0) {
       roomsInput.setCustomValidity('Количество комнат не соответвует количеству гостей');
     } else {
       roomsInput.setCustomValidity('');
@@ -74,16 +74,20 @@ const setFormValidation = () => {
   });
 };
 
-const initSendData = () =>
-{
+const initForm = () => {
+  compareGuestsAndRooms();
+  setFormValidation();
+
   form.addEventListener('submit', (evt) => {
-    debounce(()=> {
-      evt.preventDefault();
-      compareGuestsAndRooms();
-      setFormValidation();
-      formContent = new FormData(form);
-      sendData(formContent);
-    },500);
+    evt.preventDefault();
+    const formContent = new FormData(form);
+    sendData(formContent, () => {}, () => {});
+  });
+
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    form.reset();
+    setInitialAddress();
   });
 };
 
@@ -91,12 +95,5 @@ const setAddress = (lat, lng) => {
   addressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 };
 
-const clearForm = () => {
-  //Ошибка.координаты не выставляются
-  resetButton.addEventListener('click', () => {
-    setInitialAddress();
-  });
-};
 
-
-export { disableForm, enableForm, setFormValidation, formContent, setAddress, clearForm,initSendData};
+export { disableForm, enableForm, setFormValidation, setAddress, initForm };

@@ -9,6 +9,20 @@ const INITIAL_ADDRESS = {
 
 const map = L.map('map-canvas');
 
+const mainPinIcon = L.icon({
+  iconUrl: '/img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+
+const mainPinMarker =  L.marker({
+  lat: INITIAL_ADDRESS.lat,
+  lng: INITIAL_ADDRESS.lng,
+}, {
+  draggable: true,
+  icon: mainPinIcon,
+});
+
 const createCustomPopup = (card) => {
   //const mapCanvas = document.querySelector('#map-canvas');
   const offerTemplate = document.querySelector('#card').content;
@@ -36,7 +50,7 @@ const createCustomPopup = (card) => {
   const offerDescription = card.offer.description;
   const offerPhotos = card.offer.photos;
   const avatar = card.author.avatar;
-
+  
   if (!offerTitle) {
     templateTitle.remove();
   } else {
@@ -119,19 +133,6 @@ const drawMap = (onReady) => {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
-  const mainPinIcon = L.icon({
-    iconUrl: '/img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
-
-  const mainPinMarker = L.marker({
-    lat: INITIAL_ADDRESS.lat,
-    lng: INITIAL_ADDRESS.lng,
-  }, {
-    draggable: true,
-    icon: mainPinIcon,
-  });
 
   mainPinMarker.addTo(map);
   mainPinMarker.on('moveend', (evt) => {
@@ -143,12 +144,11 @@ const drawMap = (onReady) => {
 
 const clearMap = () => {
   markerGroup.clearLayers();
-  // Заменить на удаление только маркеров объявлений
 };
 
 
 const drawPoints = (data) => {
-  for (let i = 0; i < data.length; i++) {
+  data.forEach((offer) => {
     const mainPinIcon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [40, 40],
@@ -156,22 +156,23 @@ const drawPoints = (data) => {
     });
 
     const mainPinMarker = L.marker({
-      lat: data[i].location.lat,
-      lng: data[i].location.lng,
+      lat: offer.location.lat,
+      lng: offer.location.lng,
     }, {
       draggable: false,
       icon: mainPinIcon,
     });
 
-    mainPinMarker.addTo(markerGroup)
-      .bindPopup(
-        createCustomPopup(data[i]),
-      );
-  }
+    mainPinMarker.addTo(markerGroup).bindPopup(
+      createCustomPopup(offer),
+    );
+  });
 };
 
 
 const setInitialAddress = () => {
+  const initialLatLng = new L.LatLng(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
+  mainPinMarker.setLatLng(initialLatLng);
   setAddress(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
 };
 

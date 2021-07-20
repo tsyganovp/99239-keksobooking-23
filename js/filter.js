@@ -1,4 +1,5 @@
 import {clearMap, drawPoints} from './map.js';
+import { debounce } from './util.js';
 
 
 const MAX_PRICE = 1000000;
@@ -70,6 +71,7 @@ const filterOffers = (offers) => {
 
   for (let i = 0; i < offers.length; i++) {
     const {offer} = offers[i];
+
     if (isOfferMatchesFilter(offer)) {
       filteredOffers.push(offers[i]);
     }
@@ -96,14 +98,18 @@ const enableFilterForm = () => {
   });
 };
 
-// Новая функция
-// Создает обработчик для фильтрации
+
 const initFilterForm = (data) => {
-  mapFilter.addEventListener('change', () => {
-    clearMap();
-    const filteredOffers = filterOffers(data);
-    drawPoints(filteredOffers);
-  });
+  const onFilterChangeWithDebounce = debounce(
+    () => {
+      clearMap();
+      const filteredOffers = filterOffers(data);
+      drawPoints(filteredOffers);
+    }, 
+    500
+  )
+
+  mapFilter.addEventListener('change', onFilterChangeWithDebounce);
 };
 
 

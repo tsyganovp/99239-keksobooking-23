@@ -1,6 +1,4 @@
-import {showSuccsess,showError} from './form-messages.js';
-
-const URL_API = ' https://23.javascript.pages.academy/keksobooking';
+const URL_API = ' https://23.javascript.pages.academy/keksobooking123';
 
 const getOffers = (onSuccess, onError) => {
   fetch(`${URL_API}/data`)
@@ -14,24 +12,27 @@ const getOffers = (onSuccess, onError) => {
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
-      //drawPoints(data);
-      //filterOffers(data);
     })
     .catch((error) => {
       onError(error.message);
     });
 };
 
-const sendData = (formContent) => {
+const sendData = (data, onSuccess, onError) => {
   fetch(URL_API, {
     method: 'POST',
-    body: formContent,
-  }).then((response) => {
+    body: data,
+  })
+  .then((response) => {
     if(response.ok) {
-      showSuccsess();
-    } else {
-      showError();
+      onSuccess();
+      return;
     }
+
+    throw new Error('Ошибка размещения объявления');
+  })
+  .catch((error) => {
+    onError(error.message);
   });
 };
 
