@@ -1,12 +1,4 @@
-import {
-  drawPoints
-} from './map.js';
-
-import {
-  showSuccsess,
-  showError
-} from './form-messages.js';
-
+import {showSuccsess,showError} from './form-messages.js';
 
 const URL_API = ' https://23.javascript.pages.academy/keksobooking';
 
@@ -16,7 +8,7 @@ const getOffers = (onSuccess, onError) => {
       if (response.ok) {
         return response;
       }
-      
+
       throw new Error('Ошибка при получении данных');
     })
     .then((response) => response.json())
@@ -35,7 +27,6 @@ const sendData = (formContent) => {
     method: 'POST',
     body: formContent,
   }).then((response) => {
-
     if(response.ok) {
       showSuccsess();
     } else {
@@ -44,4 +35,5 @@ const sendData = (formContent) => {
   });
 };
 
-export {getOffers, sendData};
+
+export {getOffers,sendData};

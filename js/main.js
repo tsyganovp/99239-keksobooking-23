@@ -1,28 +1,30 @@
-import {disableForm, enableForm, setFormValidation} from './form.js';
-import {drawMap, filterOnChangeButton, setInitialAddress} from './map.js';
+/* eslint-disable no-console */
+import {clearForm, disableForm, enableForm,initSendData} from './form.js';
+import {drawMap, drawPoints, setInitialAddress} from './map.js';
 import {getOffers} from './api.js';
-import {disableFilterForm, enableFilterForm} from './filter.js';
+import {disableFilterForm, enableFilterForm, initFilterForm} from './filter.js';
 
 
 let offers = [];
 
 
 const onSuccess = (offersFromApi) => {
-  console.log(offers);
 
   offers = offersFromApi;
-
+  console.log(offers);
   const offersToRender = offers.slice(0, 10);
+
   // отрисовать объявления на карте offersToRender
-
+  drawPoints(offersToRender);
   // разблокировать фильтры
-
-  // инициализация формы фильтрации 
-}
+  enableFilterForm();
+  // инициализация формы фильтрации
+  initFilterForm(offers);
+};
 
 const onError = (errorMessage) => {
   console.log(errorMessage);
-}
+};
 
 disableForm();
 disableFilterForm();
@@ -31,7 +33,8 @@ drawMap(() => {
   setInitialAddress();
   enableForm();
 });
-
+initSendData();
+clearForm();
 
 //const offers = getData();
 // eslint-disable-next-line no-console

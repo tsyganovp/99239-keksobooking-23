@@ -1,3 +1,6 @@
+import {clearMap, drawPoints} from './map.js';
+
+
 const MAX_PRICE = 1000000;
 const FILTER_VALUE_ANY = 'any';
 
@@ -64,7 +67,7 @@ const isOfferMatchesFilter = (offer) => {
 
 const filterOffers = (offers) => {
   const filteredOffers = [];
-  
+
   for (let i = 0; i < offers.length; i++) {
     const {offer} = offers[i];
     if (isOfferMatchesFilter(offer)) {
@@ -91,13 +94,17 @@ const enableFilterForm = () => {
   formSelects.forEach((item) => {
     item.disabled = false;
   });
-}
+};
 
 // Новая функция
 // Создает обработчик для фильтрации
-const initFilterForm = () => {
-
+const initFilterForm = (data) => {
+  mapFilter.addEventListener('change', () => {
+    clearMap();
+    const filteredOffers = filterOffers(data);
+    drawPoints(filteredOffers);
+  });
 };
 
 
-export { filterOffers, disableFilterForm, enableFilterForm, mapFilter };
+export { filterOffers, disableFilterForm, enableFilterForm, mapFilter,initFilterForm };

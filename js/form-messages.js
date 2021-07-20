@@ -1,5 +1,3 @@
-
-
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const messageSuccess = successMessageTemplate.cloneNode(true);
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -38,7 +36,4 @@ const showError = () => {
 };
 
 
-export {
-  showSuccsess,
-  showError
-};
+export {showSuccsess,showError};

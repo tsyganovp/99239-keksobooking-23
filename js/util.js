@@ -20,5 +20,11 @@ const getRandomFloat = (min, max, numbersAfter) => {
   return (Math.random() * (max - min) + min).toFixed(numbersAfter);
 };
 
-
-export { getRandomIntInclusive, getRandomFloat };
+const debounce = (func, timeout) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+};
+export { getRandomIntInclusive, getRandomFloat, debounce };

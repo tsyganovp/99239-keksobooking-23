@@ -1,5 +1,4 @@
 import { roomTypeToTitle } from './data.js';
-import { filterOffers, mapFilter } from './filter.js';
 import { setAddress } from './form.js';
 
 
@@ -172,19 +171,9 @@ const drawPoints = (data) => {
 };
 
 
-// Перенести в filter, в initFilterForm
-const filterOnChangeButton = () => {
-  mapFilter.addEventListener('change', () => {
-    clearMap();
-    // const filteredOffers;
-    drawPoints(filterOffers(jsonResult));
-  });
+const setInitialAddress = () => {
+  setAddress(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
 };
 
 
-const setInitialAddress = () => {
-  setAddress(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
-}
-
-
-export { drawMap, drawPoints, clearMap, filterOnChangeButton, setInitialAddress };
+export {drawMap, drawPoints, clearMap, setInitialAddress};

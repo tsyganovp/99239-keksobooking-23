@@ -1,4 +1,4 @@
-import { getRandomIntInclusive, getRandomFloat } from './util.js';
+import {getRandomIntInclusive, getRandomFloat } from './util.js';
 
 
 /*
@@ -124,4 +124,4 @@ const createOffers = () => {
 };
 
 
-export { createAuthor, createLocation, createOffer, createOffers, roomTypeToTitle, roomTypeToMinPrice };
+export {createAuthor, createLocation, createOffer, createOffers, roomTypeToTitle, roomTypeToMinPrice};
