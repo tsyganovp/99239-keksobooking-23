@@ -35,7 +35,7 @@ const showError = (errorMessage) => {
   const messageError = errorMessageTemplate.cloneNode(true);
   const text = messageError.querySelector('.error__message');
   text.textContent = errorMessage;
-  
+
   const onMessageKeydown = onEscKeydown.bind(this, () => {
     closeMessage(messageError, onMessageKeydown);
   });

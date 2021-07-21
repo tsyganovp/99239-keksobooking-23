@@ -162,21 +162,21 @@ const clearMap = () => {
 
 const drawPoints = (data) => {
   data.forEach((offer) => {
-    const mainPinIcon = L.icon({
+    const icon = L.icon({
       iconUrl: '/img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [26, 52],
     });
 
-    const mainPinMarker = L.marker({
+    const marker = L.marker({
       lat: offer.location.lat,
       lng: offer.location.lng,
     }, {
       draggable: false,
-      icon: mainPinIcon,
+      icon: icon,
     });
 
-    mainPinMarker.addTo(markerGroup).bindPopup(
+    marker.addTo(markerGroup).bindPopup(
       createCustomPopup(offer),
     );
   });

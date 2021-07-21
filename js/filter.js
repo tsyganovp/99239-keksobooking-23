@@ -98,7 +98,7 @@ const initFilterForm = (data) => {
       clearMap();
       const filteredOffers = filterOffers(data);
       drawPoints(filteredOffers);
-    }, 
+    },
     500,
   );
 

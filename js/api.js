@@ -23,17 +23,17 @@ const sendData = (data, onSuccess, onError) => {
     method: 'POST',
     body: data,
   })
-  .then((response) => {
-    if(response.ok) {
-      onSuccess();
-      return;
-    }
+    .then((response) => {
+      if(response.ok) {
+        onSuccess();
+        return;
+      }
 
-    throw new Error('Ошибка размещения объявления');
-  })
-  .catch((error) => {
-    onError(error.message);
-  });
+      throw new Error('Ошибка размещения объявления');
+    })
+    .catch((error) => {
+      onError(error.message);
+    });
 };
 
 
