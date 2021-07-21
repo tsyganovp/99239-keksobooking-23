@@ -2,24 +2,29 @@ const successMessageTemplate = document.querySelector('#success').content.queryS
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
 
-const showSuccsess = () => {
+const onEscKeydown = (handler, evt) => {
+  if (evt.key === 'Escape') {
+    handler();
+  }
+};
+
+const closeMessage = (messageElement, onMessageEscKeydown) => {
+  document.removeEventListener('keydown', onMessageEscKeydown);
+  messageElement.remove();
+};
+
+
+const showSuccess = () => {
   const messageSuccess = successMessageTemplate.cloneNode(true);
 
-  const closeMessage = () => {
-    const onKeyDown = (evt) => {
-      if (evt.key === 'Escape') {
-        closeMessage();
-      }
-    };
+  const onMessageKeydown = onEscKeydown.bind(this, () => {
+    closeMessage(messageSuccess, onMessageKeydown);
+  });
 
-    document.removeEventListener('keydown', onKeyDown);
-    messageSuccess.remove();
-  };
-
-  document.addEventListener('keydown', onKeyDown);
+  document.addEventListener('keydown', onMessageKeydown);
 
   messageSuccess.addEventListener('click', () => {
-    closeMessage();
+    closeMessage(messageSuccess, onMessageKeydown);
   });
 
   document.body.appendChild(messageSuccess);
@@ -30,27 +35,19 @@ const showError = (errorMessage) => {
   const messageError = errorMessageTemplate.cloneNode(true);
   const text = messageError.querySelector('.error__message');
   text.textContent = errorMessage;
-  const errorButton = errorMessageTemplate.querySelector('.error__button');
+  
+  const onMessageKeydown = onEscKeydown.bind(this, () => {
+    closeMessage(messageError, onMessageKeydown);
+  });
 
-  const closeMessage = () => {
-    const onKeyDown = (evt) => {
-      if (evt.key === 'Escape') {
-        closeMessage();
-      }
-    }
-
-    document.removeEventListener('keydown', onKeyDown);
-    messageError.remove();
-  }
-
-  document.addEventListener('keydown', onKeyDown);
+  document.addEventListener('keydown', onMessageKeydown);
 
   messageError.addEventListener('click', () => {
-    closeMessage();
+    closeMessage(messageError, onMessageKeydown);
   });
 
   document.body.appendChild(messageError);
 };
 
 
-export {showSuccsess, showError};
+export {showSuccess, showError};

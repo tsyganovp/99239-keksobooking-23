@@ -1,7 +1,7 @@
 import { roomTypeToMinPrice } from './data.js';
 import { sendData } from './api.js';
 import { setInitialAddress } from './map.js';
-import { showError, showSuccsess } from './form-messages.js';
+import { showError, showSuccess } from './form-messages.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -84,7 +84,7 @@ const initForm = () => {
     sendData(formContent, () => {
       form.reset();
       setInitialAddress();
-      showSuccsess();
+      showSuccess();
     }, showError);
   });
 
