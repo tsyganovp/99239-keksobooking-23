@@ -6,8 +6,7 @@ import {showError} from './form-messages.js';
 
 
 const onSuccess = (offersFromApi) => {
-  const offers = offersFromApi;
-  const offersToRender = offers.slice(0, 10);
+  const offersToRender = offersFromApi.slice(0, 10);
 
   drawPoints(offersToRender);
   enableFilterForm();

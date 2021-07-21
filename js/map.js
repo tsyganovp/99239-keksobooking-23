@@ -7,6 +7,8 @@ const INITIAL_ADDRESS = {
   lng: 139.69171,
 };
 
+const offerTemplate = document.querySelector('#card').content;
+
 const map = L.map('map-canvas');
 
 const mainPinIcon = L.icon({
@@ -23,9 +25,8 @@ const mainPinMarker =  L.marker({
   icon: mainPinIcon,
 });
 
+
 const createCustomPopup = (card) => {
-  //const mapCanvas = document.querySelector('#map-canvas');
-  const offerTemplate = document.querySelector('#card').content;
   const offerCard = offerTemplate.querySelector('.popup');
   const offerElement = offerCard.cloneNode(true);
   const templateTitle = offerElement.querySelector('.popup__title');
@@ -36,7 +37,7 @@ const createCustomPopup = (card) => {
   const templateTime = offerElement.querySelector('.popup__text--time');
   const templateFeatures = offerElement.querySelector('.popup__features');
   const templateDescription = offerElement.querySelector('.popup__description');
-  const templatePhoto = offerElement.querySelector('.popup__photo');
+  const templatePhotos = offerElement.querySelector('.popup__photos');
   const templateAvatar = offerElement.querySelector('.popup__avatar');
   const offerTitle = card.offer.title;
   const offerAddress = card.offer.address;
@@ -96,24 +97,36 @@ const createCustomPopup = (card) => {
     templateFeatures.remove();
   } else {
     templateFeatures.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     offerFeatures.forEach((item) => {
       const element = document.createElement('li');
       element.classList.add('popup__feature', `popup__feature--${item}`);
-      const featuresTemplate = offerFeatures.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join('');
-      templateFeatures.innerHTML = featuresTemplate;
+      fragment.appendChild(element);
     });
+    templateFeatures.appendChild(fragment);
   }
 
-  if (!offerPhotos) {
-    templatePhoto.remove();
+  if (!offerPhotos || offerPhotos.length === 0) {
+    templatePhotos.remove();
   } else {
-    templatePhoto.src = offerPhotos;
+    templatePhotos.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    offerPhotos.forEach((photo) => {
+      const img = new Image(45, 40);
+      img.classList.add('popup__photo');
+      img.src = photo;
+      img.alt = 'Фотография жилья';
+      fragment.appendChild(img);
+    });
+    templatePhotos.appendChild(fragment);
   }
+
   if (!avatar) {
     templateAvatar.remove();
   } else {
     templateAvatar.src = avatar;
   }
+
   return offerElement;
 };
 

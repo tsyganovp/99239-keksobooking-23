@@ -1,18 +1,20 @@
-const showSuccsess = () => {
-  const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-  const messageSuccess = successMessageTemplate.cloneNode(true);
-  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  const onKeyDown = (evt) => {
-    if (evt.key === 'Escape') {
-      closeMessage();
-    }
-  }
+
+const showSuccsess = () => {
+  const messageSuccess = successMessageTemplate.cloneNode(true);
 
   const closeMessage = () => {
+    const onKeyDown = (evt) => {
+      if (evt.key === 'Escape') {
+        closeMessage();
+      }
+    };
+
     document.removeEventListener('keydown', onKeyDown);
     messageSuccess.remove();
-  }
+  };
 
   document.addEventListener('keydown', onKeyDown);
 
@@ -21,8 +23,8 @@ const showSuccsess = () => {
   });
 
   document.body.appendChild(messageSuccess);
-
 };
+
 
 const showError = (errorMessage) => {
   const messageError = errorMessageTemplate.cloneNode(true);
@@ -30,13 +32,13 @@ const showError = (errorMessage) => {
   text.textContent = errorMessage;
   const errorButton = errorMessageTemplate.querySelector('.error__button');
 
-  const onKeyDown = (evt) => {
-    if (evt.key === 'Escape') {
-      closeMessage();
-    }
-  }
-
   const closeMessage = () => {
+    const onKeyDown = (evt) => {
+      if (evt.key === 'Escape') {
+        closeMessage();
+      }
+    }
+
     document.removeEventListener('keydown', onKeyDown);
     messageError.remove();
   }

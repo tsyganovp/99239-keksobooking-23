@@ -28,13 +28,6 @@ const roomsAmountFilter = mapFilter.querySelector('#housing-rooms');
 const guestsAmountFilter = mapFilter.querySelector('#housing-guests');
 const featuresFilter = mapFilter.querySelector('#housing-features');
 
-
-// TODO Фильтрация
-// 1. Фильтрация должна происходить с помощью цикла for для реализации своевременного выхода из массива
-// https://up.htmlacademy.ru/javascript/23/criteries#b23
-// https://up.htmlacademy.ru/javascript/23/project/keksobooking#keksobooking-5-9
-//
-//
 const isPriceInRange = (price, range) => {
   if (range === FILTER_VALUE_ANY) {
     return true;
@@ -106,8 +99,8 @@ const initFilterForm = (data) => {
       const filteredOffers = filterOffers(data);
       drawPoints(filteredOffers);
     }, 
-    500
-  )
+    500,
+  );
 
   mapFilter.addEventListener('change', onFilterChangeWithDebounce);
 };
