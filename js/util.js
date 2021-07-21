@@ -10,6 +10,7 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+
 const getRandomFloat = (min, max, numbersAfter) => {
   if (min < 0 || max < 0) {
     throw new Error('Введите корректное число');
@@ -21,4 +22,17 @@ const getRandomFloat = (min, max, numbersAfter) => {
 };
 
 
-export { getRandomIntInclusive, getRandomFloat };
+const debounce = (func, timeout) => {
+  let timer;
+  return (...args) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+};
+
+
+export { getRandomIntInclusive, getRandomFloat, debounce };

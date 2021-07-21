@@ -1,17 +1,30 @@
-import {
-  createOffers
-} from './data.js';
-//eslint-disable-next-line no-unused-vars
-import {
-  setDisableForm,
-  setFormValidation
-} from './form.js';
-import { drawMap, drawPoints } from './map.js';
+import {disableForm, enableForm,initForm} from './form.js';
+import {drawMap, drawPoints, setInitialAddress} from './map.js';
+import {getOffers} from './api.js';
+import {disableFilterForm, enableFilterForm, initFilterForm} from './filter.js';
+import {showError} from './form-messages.js';
 
-const offers = createOffers();
-// eslint-disable-next-line no-console
-console.log(offers);
-setDisableForm();
-drawMap();
-drawPoints(offers);
-setFormValidation();
+
+const onSuccess = (offersFromApi) => {
+  const offersToRender = offersFromApi.slice(0, 10);
+
+  drawPoints(offersToRender);
+  enableFilterForm();
+  initFilterForm(offersFromApi);
+};
+
+const onError = (errorMessage) => {
+  showError(errorMessage);
+};
+
+disableForm();
+disableFilterForm();
+
+getOffers(onSuccess, onError);
+
+drawMap(() => {
+  setInitialAddress();
+  enableForm();
+});
+
+initForm();

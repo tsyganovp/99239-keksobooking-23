@@ -1,14 +1,32 @@
-import { setEnableForm } from './form.js';
 import { roomTypeToTitle } from './data.js';
+import { setAddress } from './form.js';
 
 
-const addersInput = document.getElementById('address');
-addersInput.value = '35.68950,139.69171';
+const INITIAL_ADDRESS = {
+  lat: 35.68950,
+  lng: 139.69171,
+};
+
+const offerTemplate = document.querySelector('#card').content;
+
 const map = L.map('map-canvas');
 
+const mainPinIcon = L.icon({
+  iconUrl: '/img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+
+const mainPinMarker =  L.marker({
+  lat: INITIAL_ADDRESS.lat,
+  lng: INITIAL_ADDRESS.lng,
+}, {
+  draggable: true,
+  icon: mainPinIcon,
+});
+
+
 const createCustomPopup = (card) => {
-  const mapCanvas = document.querySelector('#map-canvas');
-  const offerTemplate = document.querySelector('#card').content;
   const offerCard = offerTemplate.querySelector('.popup');
   const offerElement = offerCard.cloneNode(true);
   const templateTitle = offerElement.querySelector('.popup__title');
@@ -19,7 +37,7 @@ const createCustomPopup = (card) => {
   const templateTime = offerElement.querySelector('.popup__text--time');
   const templateFeatures = offerElement.querySelector('.popup__features');
   const templateDescription = offerElement.querySelector('.popup__description');
-  const templatePhoto = offerElement.querySelector('.popup__photo');
+  const templatePhotos = offerElement.querySelector('.popup__photos');
   const templateAvatar = offerElement.querySelector('.popup__avatar');
   const offerTitle = card.offer.title;
   const offerAddress = card.offer.address;
@@ -79,89 +97,97 @@ const createCustomPopup = (card) => {
     templateFeatures.remove();
   } else {
     templateFeatures.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     offerFeatures.forEach((item) => {
       const element = document.createElement('li');
       element.classList.add('popup__feature', `popup__feature--${item}`);
-      const featuresTemplate = offerFeatures.map((feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join('');
-      templateFeatures.innerHTML = featuresTemplate;
+      fragment.appendChild(element);
     });
+    templateFeatures.appendChild(fragment);
   }
 
-  if (!offerPhotos) {
-    templatePhoto.remove();
+  if (!offerPhotos || offerPhotos.length === 0) {
+    templatePhotos.remove();
   } else {
-    templatePhoto.src = offerPhotos;
+    templatePhotos.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    offerPhotos.forEach((photo) => {
+      const img = new Image(45, 40);
+      img.classList.add('popup__photo');
+      img.src = photo;
+      img.alt = 'Фотография жилья';
+      fragment.appendChild(img);
+    });
+    templatePhotos.appendChild(fragment);
   }
+
   if (!avatar) {
     templateAvatar.remove();
   } else {
     templateAvatar.src = avatar;
   }
-  mapCanvas.append(offerElement);
+
   return offerElement;
 };
 
+const markerGroup = L.layerGroup().addTo(map);
 
-const drawMap = () => {
-  map
-    .on('load', () => {
-      setEnableForm();
-    })
-    .setView({
-      lat: 35.6895000,
-      lng: 139.6917100,
-    }, 10);
+/**
+ * Инициализация карты
+ */
+const drawMap = (onReady) => {
+  map.on('load', onReady).setView({
+    lat: 35.67510,
+    lng: 139.72200,
+  }, 13);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
-  const mainPinIcon = L.icon({
-    iconUrl: '/img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
-
-  const mainPinMarker = L.marker({
-    lat: 35.6895000,
-    lng: 139.6917100,
-  }, {
-    draggable: true,
-    icon: mainPinIcon,
-  });
 
   mainPinMarker.addTo(map);
   mainPinMarker.on('moveend', (evt) => {
     const coordinates = evt.target.getLatLng();
-    // eslint-disable-next-line no-console
-    addersInput.value = `${(coordinates.lat).toFixed(5)},${(coordinates.lng).toFixed(5)}`;
+    setAddress(coordinates.lat, coordinates.lng);
   });
+};
+
+
+const clearMap = () => {
+  markerGroup.clearLayers();
 };
 
 
 const drawPoints = (data) => {
-  data.forEach((element) => {
-    const mainPinIcon = L.icon({
+  data.forEach((offer) => {
+    const icon = L.icon({
       iconUrl: '/img/pin.svg',
-      iconSize: [52, 52],
+      iconSize: [40, 40],
       iconAnchor: [26, 52],
     });
 
-    const mainPinMarker = L.marker({
-      lat: element.location.lat,
-      lng: element.location.lng,
+    const marker = L.marker({
+      lat: offer.location.lat,
+      lng: offer.location.lng,
     }, {
       draggable: false,
-      icon: mainPinIcon,
+      icon: icon,
     });
 
-    mainPinMarker.addTo(map)
-      .bindPopup(
-        createCustomPopup(element),
-      );
+    marker.addTo(markerGroup).bindPopup(
+      createCustomPopup(offer),
+    );
   });
 };
 
 
-export { drawMap, drawPoints };
+const setInitialAddress = () => {
+  const initialLatLng = new L.LatLng(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
+  mainPinMarker.setLatLng(initialLatLng);
+  setAddress(INITIAL_ADDRESS.lat, INITIAL_ADDRESS.lng);
+};
+
+
+export {drawMap, drawPoints, clearMap, setInitialAddress};
