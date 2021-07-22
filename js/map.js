@@ -1,6 +1,14 @@
-import { roomTypeToTitle } from './data.js';
+//import { roomTypeToTitle } from './data.js';
 import { setAddress } from './form.js';
 
+
+const roomTypeToTitle = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
+};
 
 const INITIAL_ADDRESS = {
   lat: 35.68950,

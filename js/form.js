@@ -1,9 +1,17 @@
-import { roomTypeToMinPrice } from './data.js';
+//import { roomTypeToMinPrice } from './data.js';
 import { sendData } from './api.js';
 import { setInitialAddress } from './map.js';
 import { showError, showSuccess } from './form-messages.js';
 import { resetFilters } from './filter.js';
 
+
+const roomTypeToMinPrice = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+  hotel: 3000,
+};
 
 const form = document.querySelector('.ad-form');
 const formFieldsets = form.querySelectorAll('fieldset');
