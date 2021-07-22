@@ -105,5 +105,8 @@ const initFilterForm = (data) => {
   mapFilter.addEventListener('change', onFilterChangeWithDebounce);
 };
 
+const resetFilters = () => {
+  mapFilter.reset();  
+}
 
-export { filterOffers, disableFilterForm, enableFilterForm, mapFilter,initFilterForm };
+export { filterOffers, disableFilterForm, enableFilterForm, mapFilter,initFilterForm,resetFilters};

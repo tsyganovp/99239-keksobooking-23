@@ -2,6 +2,7 @@ import { roomTypeToMinPrice } from './data.js';
 import { sendData } from './api.js';
 import { setInitialAddress } from './map.js';
 import { showError, showSuccess } from './form-messages.js';
+import { resetFilters } from './filter.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -14,6 +15,8 @@ const guestsInput = document.getElementById('capacity');
 const checkInTime = document.getElementById('timein');
 const checkOutTime = document.getElementById('timeout');
 const resetButton = document.querySelector('.ad-form__reset');
+const avatarInput = document.querySelector('#avatar');
+const offerPhotoInput = document.querySelector('#images');
 
 /**
  * Блокирует форму ввода объявления
@@ -50,6 +53,20 @@ const compareGuestsAndRooms = () => {
   roomsInput.reportValidity();
 };
 
+const checkAvatarInputType = (photo) => {
+  photo.addEventListener('change', () => {
+    const fileValue = photo.value;
+    const fileExtension = fileValue.substring(fileValue.lastIndexOf('.'));
+    console.log(fileExtension);
+    if(fileExtension !== '.jpg' && fileExtension !== '.jpeg' && fileExtension !== '.gif' && fileExtension !== '.png' && fileExtension !== '.svg')
+    {
+      photo.setCustomValidity('Возможна загрузка только файлов изображений!')
+    } else { 
+      photo.setCustomValidity('');
+    }
+    photo.reportValidity();
+  })
+}
 
 const setFormValidation = () => {
   stayTypeInput.addEventListener('change', () => {
@@ -77,12 +94,15 @@ const setFormValidation = () => {
 const initForm = () => {
   compareGuestsAndRooms();
   setFormValidation();
+  checkAvatarInputType(avatarInput);
+  checkAvatarInputType(offerPhotoInput); 
 
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const formContent = new FormData(form);
     sendData(formContent, () => {
       form.reset();
+      resetFilters();
       setInitialAddress();
       showSuccess();
     }, showError);
@@ -91,6 +111,7 @@ const initForm = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     form.reset();
+    resetFilters();
     setInitialAddress();
   });
 };
