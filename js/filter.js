@@ -1,4 +1,4 @@
-import {clearMap, drawPoints} from './map.js';
+import { clearMap, drawPoints } from './map.js';
 import { getOffers } from './store.js';
 import { debounce } from './util.js';
 
@@ -64,7 +64,7 @@ const filterOffers = (offers) => {
   const filteredOffers = [];
 
   for (let i = 0; i < offers.length; i++) {
-    const {offer} = offers[i];
+    const { offer } = offers[i];
 
     if (isOfferMatchesFilter(offer)) {
       filteredOffers.push(offers[i]);
@@ -95,7 +95,6 @@ const enableFilterForm = () => {
 
 const initFilterForm = () => {
   const offers = getOffers();
-  
   const onFilterChangeWithDebounce = debounce(
     () => {
       clearMap();
@@ -109,7 +108,7 @@ const initFilterForm = () => {
 };
 
 const resetFilters = () => {
-  mapFilter.reset();  
-}
+  mapFilter.reset();
+};
 
-export { filterOffers, disableFilterForm, enableFilterForm, mapFilter,initFilterForm,resetFilters};
+export { filterOffers, disableFilterForm, enableFilterForm, mapFilter, initFilterForm, resetFilters };

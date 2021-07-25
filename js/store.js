@@ -1,12 +1,10 @@
 let offers = [];
 
-const getOffers = () => {
-    return offers.slice(0);
-};
+const getOffers = () => offers.slice(0);
 
 const setOffers = (newOffers) => {
-    offers = newOffers;
+  offers = newOffers;
 };
 
 
-export {getOffers, setOffers};
+export { getOffers, setOffers };

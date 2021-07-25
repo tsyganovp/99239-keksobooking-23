@@ -62,22 +62,17 @@ const compareGuestsAndRooms = () => {
 };
 
 const checkPhotoInputType = (photo) => {
-  photo.addEventListener('change', (evt) => {
-
-    console.log(evt);
-
+  photo.addEventListener('change', () => {
     const fileValue = photo.value;
     const fileExtension = fileValue.substring(fileValue.lastIndexOf('.'));
-    console.log(fileExtension);
-    if(fileExtension !== '.jpg' && fileExtension !== '.jpeg' && fileExtension !== '.gif' && fileExtension !== '.png' && fileExtension !== '.svg')
-    {
-      photo.setCustomValidity('Возможна загрузка только файлов изображений!')
-    } else { 
+    if (fileExtension !== '.jpg' && fileExtension !== '.jpeg' && fileExtension !== '.gif' && fileExtension !== '.png' && fileExtension !== '.svg') {
+      photo.setCustomValidity('Возможна загрузка только файлов изображений!');
+    } else {
       photo.setCustomValidity('');
     }
     photo.reportValidity();
-  })
-}
+  });
+};
 
 const setFormValidation = () => {
   stayTypeInput.addEventListener('change', () => {
@@ -106,7 +101,7 @@ const initForm = () => {
   compareGuestsAndRooms();
   setFormValidation();
   checkPhotoInputType(avatarInput);
-  checkPhotoInputType(offerPhotoInput); 
+  checkPhotoInputType(offerPhotoInput);
 
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
