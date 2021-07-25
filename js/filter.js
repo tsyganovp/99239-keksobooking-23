@@ -1,4 +1,5 @@
 import {clearMap, drawPoints} from './map.js';
+import { getOffers } from './store.js';
 import { debounce } from './util.js';
 
 
@@ -92,11 +93,13 @@ const enableFilterForm = () => {
 };
 
 
-const initFilterForm = (data) => {
+const initFilterForm = () => {
+  const offers = getOffers();
+  
   const onFilterChangeWithDebounce = debounce(
     () => {
       clearMap();
-      const filteredOffers = filterOffers(data);
+      const filteredOffers = filterOffers(offers);
       drawPoints(filteredOffers);
     },
     500,

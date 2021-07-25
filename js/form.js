@@ -1,8 +1,8 @@
-//import { roomTypeToMinPrice } from './data.js';
 import { sendData } from './api.js';
-import { setInitialAddress } from './map.js';
+import { setInitialAddress, clearMap, drawPoints } from './map.js';
 import { showError, showSuccess } from './form-messages.js';
 import { resetFilters } from './filter.js';
+import { getOffers } from './store.js';
 
 
 const roomTypeToMinPrice = {
@@ -61,8 +61,11 @@ const compareGuestsAndRooms = () => {
   roomsInput.reportValidity();
 };
 
-const checkAvatarInputType = (photo) => {
-  photo.addEventListener('change', () => {
+const checkPhotoInputType = (photo) => {
+  photo.addEventListener('change', (evt) => {
+
+    console.log(evt);
+
     const fileValue = photo.value;
     const fileExtension = fileValue.substring(fileValue.lastIndexOf('.'));
     console.log(fileExtension);
@@ -102,8 +105,8 @@ const setFormValidation = () => {
 const initForm = () => {
   compareGuestsAndRooms();
   setFormValidation();
-  checkAvatarInputType(avatarInput);
-  checkAvatarInputType(offerPhotoInput); 
+  checkPhotoInputType(avatarInput);
+  checkPhotoInputType(offerPhotoInput); 
 
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -111,6 +114,9 @@ const initForm = () => {
     sendData(formContent, () => {
       form.reset();
       resetFilters();
+      clearMap();
+      const offersToRender = getOffers().slice(0, 10);
+      drawPoints(offersToRender);
       setInitialAddress();
       showSuccess();
     }, showError);
@@ -120,6 +126,9 @@ const initForm = () => {
     evt.preventDefault();
     form.reset();
     resetFilters();
+    clearMap();
+    const offersToRender = getOffers().slice(0, 10);
+    drawPoints(offersToRender);
     setInitialAddress();
   });
 };

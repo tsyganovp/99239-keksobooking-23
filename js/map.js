@@ -1,4 +1,3 @@
-//import { roomTypeToTitle } from './data.js';
 import { setAddress } from './form.js';
 
 

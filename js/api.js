@@ -1,6 +1,6 @@
 const URL_API = ' https://23.javascript.pages.academy/keksobooking';
 
-const getOffers = (onSuccess, onError) => {
+const loadOffers = (onSuccess, onError) => {
   fetch(`${URL_API}/data`)
     .then((response) => {
       if (response.ok) {
@@ -37,4 +37,4 @@ const sendData = (data, onSuccess, onError) => {
 };
 
 
-export {getOffers,sendData};
+export {loadOffers,sendData};
